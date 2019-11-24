@@ -39,7 +39,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   int64_t base = 1;
   for(int i = 0;i<l1+l2;i++){
     result+=t[i]*base;
-    base*10;
+    base*=10;
   }
   
   
