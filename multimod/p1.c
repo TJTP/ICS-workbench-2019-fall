@@ -6,7 +6,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
   
   char num1[bit];//,num2[bit],num3[bit];
-  for(int i=0; a != 0||i<bit;i++){
+  for(int i=0; a != 0&&i<bit;i++){
     num1[i] = a%10+'0';
     printf("%c",num1[i]);
   }
