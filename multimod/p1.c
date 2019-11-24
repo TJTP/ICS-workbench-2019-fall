@@ -1,11 +1,9 @@
 #include "multimod.h"
-#define base 2
 
+//2的64次方为18446744073709551616，共20位
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
-  char num1[64],num2[64],num3[64];
-  for(int i = 0;i < 64;i++){
-    
-  }  
+  //char num1[20],num2[20],num3[20];
+  
   return -1;
 }

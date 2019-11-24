@@ -23,7 +23,8 @@ int main(int argc, char *argv[]) {
     int c = getopt_long(argc, argv, "i:", long_option, &idx);
     if (c == -1) {
       break;
-    } if (c == 'i') {
+    } 
+    if (c == 'i') {
       int i = atoi(optarg);
       if (1 <= i && i <= LENGTH(multimod_tab)) {
         func = multimod_tab[i - 1];
