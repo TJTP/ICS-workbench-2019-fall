@@ -32,7 +32,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   for(int i = 0;i<l1+l2;i++){
     if(t[i] >=10){
       t[i+1]+=t[i]/10;
-      t[i]%10;
+      t[i]%=10;
     }
   }
   int64_t result=0;
