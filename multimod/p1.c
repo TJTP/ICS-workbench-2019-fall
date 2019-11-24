@@ -8,9 +8,9 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   char num1[bit],num2[bit],num3[bit];
   for(int i=0; a != 0||i<bit;i++){
     num1[i] = a%10+'0';
-    putchar(num1[i]);
+    printf("%s",num1[i]);
   }
-  //printf("\n");
+  printf("\n");
   for(int i=0; b != 0||i<bit;i++){
     num2[i] = b%10+'0';
   }
