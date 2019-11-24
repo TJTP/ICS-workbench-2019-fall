@@ -1,6 +1,6 @@
 #include "multimod.h"
 #include <stdio.h>
-#include<string.h>
+
 #define bit 30
 //2的64次方为18446744073709551616，共20位
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
@@ -19,7 +19,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     num3[i] = m%10;
     m/=10;
   }*/
-  for(int i = strlen(num1)-1;i>=0;i--)
+  for(int i = sizeof(num1)/sizeof(int)-1;i>=0;i--)
     printf("%d",num1[i]);
   printf("\n");
   
