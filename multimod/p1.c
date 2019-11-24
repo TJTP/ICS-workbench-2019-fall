@@ -11,11 +11,11 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     temp1[i] = a%10+'0';
     a/=10;
   }
-  for(int i=0; b != 0||i<bit;i++){
+  for(int i=0; b != 0&&i<bit;i++){
     temp2[i] = b%10+'0';
     b/=10;
   }
-  for(int i=0; m != 0||i<bit;i++){
+  for(int i=0; m != 0&&i<bit;i++){
     temp3[i] = m%10+'0';
     m/=10;
   }
