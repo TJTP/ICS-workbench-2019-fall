@@ -19,11 +19,11 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     temp3[i] = m%10+'0';
     m/=10;
   }
-  int l1 = strlen(temp1),l2 = strlen(temp2),l3 = strlen(temp3);
+  /*int l1 = strlen(temp1),l2 = strlen(temp2),l3 = strlen(temp3);
   int num1[l1],num2[l2],num3[l3];
   for(int i = 0,j=l1-1;i<l1;i++,j--) num1[i] = temp1[j]-'0';
   for(int i = 0,j=l2-1;i<l2;i++,j--) num2[i] = temp2[j]-'0';
-  for(int i = 0,j=l3-1;i<l3;i++,j--) num3[i] = temp3[j]-'0';
+  for(int i = 0,j=l3-1;i<l3;i++,j--) num3[i] = temp3[j]-'0';*/
 
   printf("%s\n",temp1);
   printf("%s\n",temp2);
