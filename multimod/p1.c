@@ -29,8 +29,9 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   printf("%s\n",temp2);
   for (int i = 0;i<strlen(temp3);i++)
     printf("%c",temp3[i]);
-  printf("%ld",strlen(temp3));
   printf("\n");
+  printf("%ld",strlen(temp3));
+  
   
   return -1;
 }
