@@ -66,8 +66,8 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     return result;
   }
 
-  NUM r = subtract(tmp,num3);
-  /*int64_t result = 0;
+  /*NUM r = subtract(tmp,num3);
+  int64_t result = 0;
   int64_t base = 1;
   for(int i = 0;i<r.len;i++){
     result+=r.s[i]*base;
