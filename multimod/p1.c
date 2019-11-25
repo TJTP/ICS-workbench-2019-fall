@@ -8,6 +8,8 @@ typedef struct {
   int len;
   int s[bit*2];
 } NUM;
+extern NUM subtract(NUM t,NUM m);
+
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
   NUM num1,num2,num3;
