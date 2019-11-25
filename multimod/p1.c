@@ -1,6 +1,5 @@
 #include "multimod.h"
-#include <stdio.h>
-#include <string.h>
+
 #define bit 20
 //2的64次方为18446744073709551616，共20位
 
@@ -29,9 +28,8 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     m/=10;
     num3.len++;
   }
-  //return num3.len;
-  //printf("use it once %d\n",num3.s[0]);
 
+  return num1.len;
   NUM tmp; 
   tmp.len=num1.len+num2.len-1;
   for (int i=0;i<bit*2;i++)  tmp.s[i]=0;
@@ -70,6 +68,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   return result;
 }
 
+
 NUM subtract(NUM t,NUM m){
   NUM r;
   r=t;
@@ -93,6 +92,7 @@ NUM subtract(NUM t,NUM m){
         if(j == t.len) return r;//此时被减数已经小于减数，即得到余数
         if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
       }
+      if(t.s[t.len-1]==0)  t.len-=1;
     }
   }
   return r;
