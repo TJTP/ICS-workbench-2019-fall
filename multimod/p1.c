@@ -46,7 +46,8 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     }
   }
   
-  if(tmp.len < num3.len){
+  if(tmp.len < num3.len
+      ||(tmp.len==num3.len && tmp.s[tmp.len-1]<num3.s[num3.len-1])){//被除数小于除数时
     int64_t result = 0;
     int64_t base = 1;
     for(int i = 0;i<tmp.len;i++){
@@ -55,6 +56,11 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     }
     return result;
   }
+
+
+
+
+
 
   
   
