@@ -30,7 +30,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     num3.len++;
   }
 
-  printf("use it once %d\n",num3.s[0]);
+  //printf("use it once %d\n",num3.s[0]);
 
   NUM tmp; 
   tmp.len=num1.len+num2.len-1;
@@ -48,8 +48,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     }
   }
   
-  if(tmp.len < num3.len
-      ||(tmp.len==num3.len && tmp.s[tmp.len-1]<num3.s[num3.len-1])){//被除数小于除数时
+  if(tmp.len < num3.len){//被除数长度小于除数长度时
     int64_t result = 0;
     int64_t base = 1;
     for(int i = 0;i<tmp.len;i++){
@@ -58,6 +57,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     }
     return result;
   }
+
   NUM r = subtract(tmp,num3);
   int64_t result = 0;
   int64_t base = 1;
@@ -73,8 +73,11 @@ NUM subtract(NUM t,NUM m){
   r=t;
   while(1){
     r=t;
+
     for (int i=0;i<m.len;i++){//逐位作差
+
       t.s[i] = t.s[i]-m.s[i];
+      
       if(t.s[i]<0){
         int j = i+1;
         for (;j<t.len;j++){//借到位之后
