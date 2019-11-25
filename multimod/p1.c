@@ -9,7 +9,7 @@ typedef struct {
   int len;
   int s[bit*2];
 } NUM;
-extern NUM subtract(NUM t,NUM m);
+extern static NUM subtract(NUM t,NUM m);
 
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
@@ -76,7 +76,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
 }
 
 
-NUM subtract(NUM t,NUM m){
+static NUM subtract(NUM t,NUM m){
   NUM r=t;
   while(1){
     r=t;
