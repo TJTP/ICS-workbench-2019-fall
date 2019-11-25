@@ -82,15 +82,15 @@ NUM subtract(NUM t,NUM m){
         int j = i+1;
         for (;j<t.len;j++){
           if(t.s[j]>0){//借到位之后
-            t.s[j]-=1;
+            t.s[j] -= 1;
             int k = j-1;
             for(;k>i;k--) t.s[k]=9;
-            t.s[i]+=10;
+            t.s[i] += 10;
             break;
           }
         }
         if(j == t.len) return r;//此时被减数已经小于减数，即得到余数
-        if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
+        //if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
       }
 
       if(t.s[t.len-1]==0)  t.len-=1;
