@@ -93,10 +93,11 @@ NUM subtract(NUM t,NUM m){
           }
           j++;
         }
-        if(j == t.len) return r;//此时被减数已经小于减数，即得到余数
+        if(t.s[t.len-1]<0) return r;//此时被减数已经小于减数，即得到余数
         if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
       }
     }
+
     if(t.s[t.len-1] == 0)  t.len-=1;
   }
   return r;
