@@ -3,46 +3,63 @@
 #include <string.h>
 #define bit 20
 //2的64次方为18446744073709551616，共20位
+
+typedef struct {
+  int len;
+  int s[bit*2];
+} NUM;
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
-  int num1[bit],num2[bit],num3[bit];
-  int l1=0,l2=0,l3=0;
+  NUM num1,num2,num3;
+  num1.len=0,num2.len=0,num3.len=0;
   while(a){
-    num1[l1]=a%10;
+    num1.s[num1.len]=a%10;
     a/=10;
-    l1++;
+    num1.len++;
   }
   while(b){
-    num2[l2]=b%10;
+    num2.s[num2.len]=b%10;
     b/=10;
-    l2++;
+    num2.len++;
   }
   while(m){
-    num3[l3]=m%10;
+    num3.s[num3.len]=m%10;
     m/=10;
-    l3++;
+    num3.len++;
   }
-  printf("use it once %d\n",num3[0]);
-  int t[bit*2];
-  for (int i=0;i<bit*2;i++) t[i]=0;
-  for(int i=0;i<l1;i++)
-    for(int j =0; j<l2;j++)
-      t[i+j]+=num1[i]*num2[j];
-  
-  for(int i = 0;i<l1+l2;i++){
-    if(t[i] >=10){
-      t[i+1]+=t[i]/10;
-      t[i]%=10;
+
+  printf("use it once %d\n",num3.s[0]);
+
+  NUM tmp; 
+  tmp.len=num1.len+num2.len-1;
+  for (int i=0;i<bit*2;i++) tmp.s[i]=0;
+  for(int i=0;i<num1.len;i++){
+    for(int j =0; j<num2.len;j++)
+      tmp.s[i+j]+=num1.s[i]*num2.s[j];
+  }
+
+  for(int i = 0;i<num1.len+num2.len;i++){
+    if(tmp.s[i] >=10){
+      tmp.s[i+1]+=tmp.s[i]/10;
+      tmp.s[i]%=10;
+      if (i == num1.len+num2.len-1) tmp.len+=1;
     }
   }
-  int64_t result=0;
-  int64_t base = 1;
-  for(int i = 0;i<l1+l2;i++){
-    result+=t[i]*base;
-    base*=10;
+  
+  if(tmp.len < num3.len){
+    int64_t result = 0;
+    int64_t base = 1;
+    for(int i = 0;i<tmp.len;i++){
+      result += tmp.s[i]*base;
+      base *= 10;
+    }
+    return result;
   }
+
   
   
   
-  return result;
+  return -1;
 }
+
+
