@@ -35,6 +35,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   NUM tmp; 
   tmp.len=num1.len+num2.len-1;
   for (int i=0;i<bit*2;i++)  tmp.s[i]=0;
+
   for(int i=0;i<num1.len;i++){
     for(int j =0; j<num2.len;j++)
       tmp.s[i+j]+=num1.s[i]*num2.s[j];
@@ -42,9 +43,9 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
 
   for(int i = 0;i<num1.len+num2.len;i++){
     if(tmp.s[i] >=10){
-      tmp.s[i+1]+=tmp.s[i]/10;
-      tmp.s[i]%=10;
-      if (i == num1.len+num2.len-1) tmp.len+=1;
+      tmp.s[i+1] += tmp.s[i]/10;
+      tmp.s[i] %= 10;
+      if (i == num1.len+num2.len-1 && tmp.s[i] != 0) tmp.len+=1;
     }
   }
   return tmp.len;
