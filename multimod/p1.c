@@ -78,7 +78,7 @@ NUM subtract(NUM t,NUM m){
 
       t.s[i] -= m.s[i];
 
-      if(t.s[i]<0){
+      if(t.s[i] < 0){
         int j = i+1;
         for (;j<t.len;){
           if(t.s[j]>0){//借到位之后
@@ -97,7 +97,7 @@ NUM subtract(NUM t,NUM m){
         if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
       }
 
-      if(t.s[t.len-1]==0)  t.len-=1;
+      //if(t.s[t.len-1] == 0)  t.len-=1;
     }
   }
   return r;
