@@ -65,7 +65,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     result+=r.s[i]*base;
     base*=10;
   }
-  return r.len;
+  return r.s[bit];
 }
 
 
@@ -83,7 +83,8 @@ NUM subtract(NUM t,NUM m){
         for (;j<t.len;j++){
           if(t.s[j]>0){//借到位之后
             t.s[j]-=1;
-            for(int k=j-1;k>i;k--) t.s[k]=9;
+            int k = j-1;
+            for(;k>i;k--) t.s[k]=9;
             t.s[i]+=10;
             break;
           }
@@ -91,6 +92,7 @@ NUM subtract(NUM t,NUM m){
         if(j == t.len) return r;//此时被减数已经小于减数，即得到余数
         if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
       }
+
       if(t.s[t.len-1]==0)  t.len-=1;
     }
   }
