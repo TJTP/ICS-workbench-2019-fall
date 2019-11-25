@@ -2,7 +2,6 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include "multimod.h"
-#include <time.h>
 
 static struct option long_option[] = {
   { "i", required_argument, NULL, 'i' },
