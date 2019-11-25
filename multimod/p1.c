@@ -1,5 +1,7 @@
 #include "multimod.h"
-#include <stdio.h>
+#include <time.h>
+#include <stdio.h>;
+
 #define bit 20
 //2的64次方为18446744073709551616，共20位
 
@@ -34,6 +36,8 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   tmp.len=num1.len+num2.len-1;
   for (int i=0;i<bit*2;i++)  tmp.s[i]=0;
 
+  clock_t start,finish;
+  start=clock();
   for(int i=0;i<num1.len;i++){
     for(int j =0; j<num2.len;j++)
       tmp.s[i+j]+=num1.s[i]*num2.s[j];
@@ -55,6 +59,9 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
       result += tmp.s[i]*base;
       base *= 10;
     }
+    finish=clock();
+    double duration = (double)(finish-start)/CLOCKS_PER_SEC;
+    printf("%f seconds on p1.c\n",duration);
     return result;
   }
 
