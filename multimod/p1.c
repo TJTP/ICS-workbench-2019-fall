@@ -65,7 +65,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     result+=r.s[i]*base;
     base*=10;
   }
-  return r.len;
+  return result;
 }
 
 
