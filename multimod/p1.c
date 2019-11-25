@@ -47,6 +47,14 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     if (i == num1.len+num2.len-1 && tmp.s[i] != 0) tmp.len+=1;
   }
   //return tmp.len;
+
+  int64_t result = 0;
+  int64_t base = 1;
+  for(int i = 0;i<tmp.len;i++){
+    result += tmp.s[i]*base;
+    base *= 10;
+  }
+  return result;
   
   if(tmp.len < num3.len){//被除数长度小于除数长度时
     int64_t result = 0;
@@ -90,7 +98,7 @@ NUM subtract(NUM t,NUM m){
           }
           j++;
         }
-        if(t.s[2]==1) printf("%d\n",t.len);
+        //if(t.s[2]==1) printf("%d\n",t.len);
         if(j == t.len) return r;//此时被减数已经小于减数，即得到余数
         if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
       }
