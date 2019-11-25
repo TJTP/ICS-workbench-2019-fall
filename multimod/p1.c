@@ -29,7 +29,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     num3.len++;
   }
 
-  return num1.len;
+  return num2.len;
   NUM tmp; 
   tmp.len=num1.len+num2.len-1;
   for (int i=0;i<bit*2;i++)  tmp.s[i]=0;
