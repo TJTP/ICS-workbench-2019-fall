@@ -70,8 +70,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
 
 
 NUM subtract(NUM t,NUM m){
-  NUM r;
-  r=t;
+  NUM r=t;
   while(1){
     r=t;
 
