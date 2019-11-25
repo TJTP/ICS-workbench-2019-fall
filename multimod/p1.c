@@ -1,6 +1,6 @@
 #include "multimod.h"
 #include <time.h>
-#include <stdio.h>;
+#include <stdio.h>
 
 #define bit 20
 //2的64次方为18446744073709551616，共20位
