@@ -29,7 +29,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     m/=10;
     num3.len++;
   }
-  return num2.len;
+  return num3.len;
   //printf("use it once %d\n",num3.s[0]);
 
   NUM tmp; 
