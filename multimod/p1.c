@@ -29,7 +29,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     m/=10;
     num3.len++;
   }
-
+  return num1.len;
   //printf("use it once %d\n",num3.s[0]);
 
   NUM tmp; 
@@ -48,6 +48,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
       if (i == num1.len+num2.len-1 && tmp.s[i] != 0) tmp.len+=1;
     }
   }
+
   return tmp.len;
   
   if(tmp.len < num3.len){//被除数长度小于除数长度时
