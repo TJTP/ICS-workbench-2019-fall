@@ -93,7 +93,7 @@ NUM subtract(NUM t,NUM m){
         if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
       }
 
-      //if(t.s[t.len-1]==0)  t.len-=1;
+      if(t.s[t.len-1]==0)  t.len-=1;
     }
   }
   return r;
