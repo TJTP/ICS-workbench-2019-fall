@@ -34,7 +34,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
 
   NUM tmp; 
   tmp.len=num1.len+num2.len-1;
-  for (int i=0;i<bit*2;i++) tmp.s[i]=0;
+  for (int i=0;i<bit*2;i++)  tmp.s[i]=0;
   for(int i=0;i<num1.len;i++){
     for(int j =0; j<num2.len;j++)
       tmp.s[i+j]+=num1.s[i]*num2.s[j];
@@ -76,19 +76,19 @@ NUM subtract(NUM t,NUM m){
 
     for (int i=0;i<m.len;i++){//逐位作差
 
-      t.s[i] = t.s[i]-m.s[i];
-      
+      t.s[i] -= m.s[i];
+
       if(t.s[i]<0){
         int j = i+1;
-        for (;j<t.len;j++){//借到位之后
-          if(t.s[j]>0){
+        for (;j<t.len;j++){
+          if(t.s[j]>0){//借到位之后
             t.s[j]-=1;
             for(int k=j-1;k>i;k--) t.s[k]=9;
             t.s[i]+=10;
             break;
           }
         }
-        if(j==t.len) return r;//此时被减数已经小于减数，即得到余数
+        if(j == t.len) return r;//此时被减数已经小于减数，即得到余数
         if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
       }
     }
