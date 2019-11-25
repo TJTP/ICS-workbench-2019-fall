@@ -89,7 +89,6 @@ NUM subtract(NUM t,NUM m){
               t.s[k]=9;
               k--;
             }
-            if (j == t.len-1 && t.s[j]==0) t.len-=1;
             break;
           }
           j++;
