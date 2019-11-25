@@ -80,23 +80,23 @@ NUM subtract(NUM t,NUM m){
 
       if(t.s[i] < 0){
         int j = i+1;
+        int flag = 0;
         for (; j<t.len;j++){
-          if(t.s[j]>0){//借到位之后
-            t.s[i] += 10;
-            t.s[j] -= 1;
-            int k = j-1;
+          if(t.s[j]>0){//如果有位可借
+            t.s[i] += 10;//当前位加上10
+            t.s[j] -= 1;//被借的位减去1
+            int k = j-1;//被借位与当前位之间的位，如果有的话，全部置为9
             while(k>i){
               t.s[k]=9;
               k--;
             }
+            flag = 1;
             break;
           }
         }
-        if(t.s[t.len-1]<0) return r;//此时被减数已经小于减数，即得到余数
-        if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
+        if(flag == 0) return r;
       }
     }
-
     if(t.s[t.len-1] == 0)  t.len-=1;
   }
   return r;
