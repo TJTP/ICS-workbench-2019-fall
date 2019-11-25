@@ -71,7 +71,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   }
   finish=clock();
   double duration = (double)(finish-start)/CLOCKS_PER_SEC;
-  printf("%f seconds on p1.c\n",duration);
+  printf("%f seconds on p1.c and the answer is ",duration);
   return result;
 }
 
