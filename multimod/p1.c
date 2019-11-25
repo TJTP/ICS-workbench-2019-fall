@@ -80,7 +80,7 @@ NUM subtract(NUM t,NUM m){
 
       if(t.s[i]<0){
         int j = i+1;
-        for (;j<t.len;j++){
+        for (;j<t.len;){
           if(t.s[j]>0){//借到位之后
             t.s[j] -= 1;
             int k = j-1;
@@ -88,6 +88,7 @@ NUM subtract(NUM t,NUM m){
             t.s[i] += 10;
             break;
           }
+          j++;
         }
         if(t.s[2]==1) printf("%d\n",t.len);
         if(j == t.len) return r;//此时被减数已经小于减数，即得到余数
