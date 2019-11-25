@@ -59,9 +59,6 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
       result += tmp.s[i]*base;
       base *= 10;
     }
-    finish=clock();
-    double duration = (double)(finish-start)/CLOCKS_PER_SEC;
-    printf("%f seconds on p1.c\n",duration);
     return result;
   }
 
@@ -72,6 +69,9 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     result+=r.s[i]*base;
     base*=10;
   }
+  finish=clock();
+  double duration = (double)(finish-start)/CLOCKS_PER_SEC;
+  printf("%f seconds on p1.c\n",duration);
   return result;
 }
 
