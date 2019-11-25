@@ -1,5 +1,5 @@
 #include "multimod.h"
-
+#include <stdio.h>
 #define bit 20
 //2的64次方为18446744073709551616，共20位
 
@@ -89,8 +89,9 @@ NUM subtract(NUM t,NUM m){
             break;
           }
         }
+        printf("%d\n",t.len);
         if(j == t.len) return r;//此时被减数已经小于减数，即得到余数
-        //if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
+        if(j == t.len-1 && t.s[j]==0) t.len-=1;//最高位变为0后，长度缩小为1；
       }
 
       if(t.s[t.len-1]==0)  t.len-=1;
