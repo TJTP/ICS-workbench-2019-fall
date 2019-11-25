@@ -47,6 +47,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
       if (i == num1.len+num2.len-1) tmp.len+=1;
     }
   }
+  return tmp.len;
   
   if(tmp.len < num3.len){//被除数长度小于除数长度时
     int64_t result = 0;
