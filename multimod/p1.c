@@ -67,7 +67,8 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
     m/=10;
     num3.len++;
   }
-
+  printf("%d\n",num3.len);
+  
   NUM tmp = mul(num1,num2);
   printf("%d\n",tmp.len);
 
