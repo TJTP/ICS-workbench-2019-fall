@@ -12,9 +12,10 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
   clock_t start,finish;
   start=clock();
-  int64_t a1=a,b1=b,m1=m;
+  
   int64_t ret = 0;
 #ifdef COUNTING
+  int64_t a1=a,b1=b,m1=m;
    srand((unsigned)time(NULL));
   for(int i = 1;i<=20;i++){
     
