@@ -136,6 +136,7 @@ static NUM subtract(NUM t,NUM m){
       }
     }
   }
+  if (t.s[t.len-1]==0) t.len-=1;
   return t;
   
   
