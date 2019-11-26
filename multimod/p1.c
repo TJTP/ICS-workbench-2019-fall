@@ -69,7 +69,7 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
   }
 
   NUM tmp = mul(num1,num2);
-  
+  printf("%d\n",tmp.len);
 
   NUM r = mod(tmp,num3);
   int64_t result = 0;
@@ -88,7 +88,7 @@ static NUM mul(NUM a,NUM b){
 
   for(int i=0;i<a.len;i++){
     for(int j =0; j<b.len;j++)
-      res.s[i+j]+=a.s[i]*b.s[j];
+      res.s[i+j] += a.s[i]*b.s[j];
   }
 
   for(int i = 0;i<res.len;i++){
