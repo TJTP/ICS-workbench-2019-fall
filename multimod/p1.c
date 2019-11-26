@@ -93,7 +93,7 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
     }
     return result;
   }
-  return -1;
+  
 
   NUM r = subtract(tmp,num3);
   int64_t result = 0;
@@ -110,7 +110,7 @@ static NUM subtract(NUM t,NUM m){
   NUM r=t;
   while(1){
     r=t;
-
+    printf("hahaha\n");
     for (int i=0;i<m.len;i++){//逐位作差
 
       t.s[i] -= m.s[i];
