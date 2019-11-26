@@ -6,7 +6,7 @@
 
 #define bit 20
 //2的64次方为9223372036854775808，共19位
-#define COUNTING
+//#define COUNTING
 
 typedef struct {
   int len;
@@ -31,7 +31,8 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   
   while(!feof(fp)){
     fscanf(fp,"%ld %ld %ld",&a,&b,&m);
-    printf("a:%-20ld b:%-20ld m:%-20ld ans:%-20ld\n",a,b,m,calculator(a,b,m));
+    int64_t cal = calculator(a,b,m);
+    printf("a:%-20ld b:%-20ld m:%-20ld ans:%-20ld\n",a,b,m,cal);
   }
   ret = calculator(a1,b1,m1);
 #endif
