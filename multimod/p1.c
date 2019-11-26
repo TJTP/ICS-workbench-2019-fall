@@ -22,8 +22,9 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   int64_t a1=a,b1=b,m1=m;
   int64_t ret = 0;
 #ifdef COUNTING
+  srand((unsigned)time(NULL));
   for(int i = 1;i<=20;i++){
-    srand((unsigned)time(NULL));
+    
     //0x8000000000000000
     a = rand() % 100000;
     b = rand() % 100000;
