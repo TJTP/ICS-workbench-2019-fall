@@ -67,10 +67,10 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
     m/=10;
     num3.len++;
   }
-  printf("%d\n",num3.len);
+  //printf("%d\n",num3.len);
 
   NUM tmp = mul(num1,num2);
-  printf("%d\n",tmp.len);
+  //printf("%d\n",tmp.len);
 
   NUM r = mod(tmp,num3);
   int64_t result = 0;
@@ -101,6 +101,7 @@ static NUM mul(NUM a,NUM b){
   if (res.s[res.len] > 0) res.len+=1;
   return res;
 }
+
 bool compare(NUM t, NUM m){
   if(t.len<m.len) return false;
   else if(t.len >m.len) return true;
@@ -130,13 +131,14 @@ static NUM subtract(NUM t,NUM m){
         if(tmp.s[j]>0){//找到借位所在的位时
           tmp.s[i] += 10;//当前位加上10
           tmp.s[j] -= 1;//被借的位减去1
-          for(int k=j-1;k>i;k--) tmp.s[k]=9;
           break;
         }
+        else tmp.s[j] = 9;
       }
     }
   }
   if (tmp.s[tmp.len-1] == 0) tmp.len-=1;
+  
   return tmp;
   
   
