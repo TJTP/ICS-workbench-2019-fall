@@ -14,20 +14,35 @@ typedef struct {
 
 static NUM subtract(NUM t,NUM m);
 
-#ifdef COUNTING
-void test(){
-  for(int i = 1;i<=20;i++){
-    srand((unsigned)time(NULL));
-    int64_t a = rand() % 0x8000000000000000;
-    int64_t b = rand() % 0x8000000000000000;
-    int64_t m = rand() % 0x8000000000000000;
-    printf("test sample %d is %ld\n",i,multimod_p1(a,b,m));
-  }
-}
-#endif
+
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
+  clock_t start,finish;
+  start=clock();
+  int64_t a1=a,b1=b,m1=m;
+  int64_t ret = 0;
+#ifdef COUNTING
+  for(int i = 1;i<=20;i++){
+    srand((unsigned)time(NULL));
+    a = rand() % 0x8000000000000000;
+    b = rand() % 0x8000000000000000;
+    m = rand() % 0x8000000000000000;
+    printf("test sample %d is %ld\n",i,calculator(a,b,m));
+  }
+  ret = calculator(a1,b1,m1);
+#endif
+#ifndef COUNTING
+  ret = calculator(a,b,m);
+#endif
+  finish=clock();
+  double duration = (double)(finish-start)/CLOCKS_PER_SEC;
+  printf("%f seconds on p1.c and the answer is \n",duration);
+  return ret;
+  
+  
+}
 
+int64_t calculator(int64_t a,int64_t b, int64_t m){
   NUM num1,num2,num3;
   num1.len=0,num2.len=0,num3.len=0;
   while(a){
@@ -46,13 +61,11 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     num3.len++;
   }
 
-  //return num3.len;
   NUM tmp; 
   tmp.len=num1.len+num2.len-1;
   for (int i=0;i<bit*2;i++)  tmp.s[i]=0;
 
-  clock_t start,finish;
-  start=clock();
+  
   for(int i=0;i<num1.len;i++){
     for(int j =0; j<num2.len;j++)
       tmp.s[i+j]+=num1.s[i]*num2.s[j];
@@ -65,7 +78,6 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     }
     if (i == num1.len+num2.len-1 && tmp.s[i] != 0) tmp.len+=1;
   }
-  //return tmp.len;
 
   if(tmp.len < num3.len){//被除数长度小于除数长度时
     int64_t result = 0;
@@ -76,6 +88,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     }
     return result;
   }
+  
 
   NUM r = subtract(tmp,num3);
   int64_t result = 0;
@@ -84,9 +97,6 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     result+=r.s[i]*base;
     base*=10;
   }
-  finish=clock();
-  double duration = (double)(finish-start)/CLOCKS_PER_SEC;
-  printf("%f seconds on p1.c and the answer is ",duration);
   return result;
 }
 
