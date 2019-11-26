@@ -93,7 +93,7 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
     }
     return result;
   }
-  
+  return -1;
 
   NUM r = subtract(tmp,num3);
   int64_t result = 0;
