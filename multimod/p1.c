@@ -6,7 +6,7 @@
 
 #define bit 20
 //2的64次方为9223372036854775808，共19位
-#define COUNTING
+//#define COUNTING
 
 typedef struct {
   int len;
@@ -14,7 +14,10 @@ typedef struct {
 } NUM;
 
 static NUM subtract(NUM t,NUM m);
-static  int64_t calculator(int64_t a,int64_t b, int64_t m);
+static int64_t calculator(int64_t a,int64_t b, int64_t m);
+static bool compare(NUM t, NUM m);
+static NUM mod(NUM t, NUM m);
+static NUM mul(NUM a, NUM b);
 
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
@@ -44,8 +47,6 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   double duration = (double)(finish-start)/CLOCKS_PER_SEC;
   printf("%f seconds on p1.c and the answer of input is ",duration);
   return ret;
-  
-  
 }
 
 static int64_t calculator(int64_t a,int64_t b, int64_t m){
@@ -67,36 +68,10 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
     num3.len++;
   }
 
-  NUM tmp; 
-  tmp.len=num1.len+num2.len-1;
-  for (int i=0;i<bit*2;i++)  tmp.s[i]=0;
-
-  
-  for(int i=0;i<num1.len;i++){
-    for(int j =0; j<num2.len;j++)
-      tmp.s[i+j]+=num1.s[i]*num2.s[j];
-  }
-
-  for(int i = 0;i<num1.len+num2.len;i++){
-    if(tmp.s[i] >=10){
-      tmp.s[i+1] += tmp.s[i]/10;
-      tmp.s[i] %= 10;
-    }
-    if (i == num1.len+num2.len-1 && tmp.s[i] != 0) tmp.len+=1;
-  }
-
-  if(tmp.len < num3.len){//被除数长度小于除数长度时
-    int64_t result = 0;
-    int64_t base = 1;
-    for(int i = 0;i<tmp.len;i++){
-      result += tmp.s[i]*base;
-      base *= 10;
-    }
-    return result;
-  }
+  NUM tmp = mul(num1,num2);
   
 
-  NUM r = subtract(tmp,num3);
+  NUM r = mod(tmp,num3);
   int64_t result = 0;
   int64_t base = 1;
   for(int i = 0;i<r.len;i++){
@@ -106,38 +81,60 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
   return result;
 }
 
+static NUM mul(NUM a,NUM b){
+  NUM res;
+  res.len=a.len+b.len-1;
+  for (int i=0;i<bit*2;i++)  res.s[i]=0;
 
-static NUM subtract(NUM t,NUM m){
-  NUM r=t;
-  while(1){
-    r=t;
-    
-    for (int i=0;i<m.len;i++){//逐位作差
+  for(int i=0;i<a.len;i++){
+    for(int j =0; j<b.len;j++)
+      res.s[i+j]+=a.s[i]*b.s[j];
+  }
 
-      t.s[i] -= m.s[i];
-
-      if(t.s[i] < 0){
-        int j = i+1;
-        int flag = 0;
-        for (; j<t.len;j++){
-          if(t.s[j]>0){//如果有位可借
-            t.s[i] += 10;//当前位加上10
-            t.s[j] -= 1;//被借的位减去1
-            int k = j-1;//被借位与当前位之间的位，如果有的话，全部置为9
-            while(k>i){
-              t.s[k]=9;
-              k--;
-            }
-            flag = 1;
-            break;
+  for(int i = 0;i<res.len;i++){
+    if(res.s[i] >=10){
+      res.s[i+1] += res.s[i]/10;
+      res.s[i] %= 10;
+    }
+  }
+  if (res.s[res.len] > 0) res.len+=1;
+  return res;
+}
+bool compare(NUM t, NUM m){
+  if(t.len<m.len) return false;
+  else if(t.len >m.len) return true;
+  for (int i = t.len-1;i>=0;i--){
+    if(t.s[i] > m.s[i]) return true;
+    else if(t.s[i] < m.s[i]) return false;
+  }
+}
+static NUM mod (NUM t, NUM m){
+  NUM tmp = t;
+  int64_t q = 0;
+  while(compare(tmp,m)){
+    tmp = subtract(tmp,m);
+    q++;
+  }
+  return tmp;
+}
+static NUM subtract(NUM t,NUM m){   
+  for (int i=0;i<m.len;i++){//逐位作差
+    t.s[i] -= m.s[i];
+    if(t.s[i] < 0){
+      for (int j = i+1; j<t.len;j++){
+        if(t.s[j]>0){//找到借位所在的位时
+          t.s[i] += 10;//当前位加上10
+          t.s[j] -= 1;//被借的位减去1
+          for(int k=j-1;k>i;k--){
+            t.s[k]=9;
+            k--;
           }
+          break;
         }
-        if(flag == 0) return r;
       }
     }
-    if(t.s[t.len-1] == 0)  t.len-=1;
   }
-  return r;
+  return t;
   
   
 }
