@@ -5,7 +5,7 @@
 
 #define bit 20
 //2的64次方为18446744073709551616，共20位
-#define COUNTING
+//#define COUNTING
 
 typedef struct {
   int len;
