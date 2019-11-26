@@ -2,10 +2,11 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define bit 20
-//2的64次方为18446744073709551616，共20位
-//#define COUNTING
+//2的64次方为9223372036854775808，共19位
+#define COUNTING
 
 typedef struct {
   int len;
@@ -22,14 +23,15 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   int64_t ret = 0;
 #ifdef COUNTING
   int64_t a1=a,b1=b,m1=m;
-  srand((unsigned)time(NULL));
-  for(int i = 1;i<=20;i++){
-    
-    //0x8000000000000000
-    a = rand() % 100000;
-    b = rand() % 100000;
-    m = rand() % 100000;
-    printf("a : %ld, b : %ld, m : %ld, ID: %d result: %ld\n",a,b,m,i,calculator(a,b,m));
+  FILE *fp = fopen("./rand_num","r");
+  if(!fp){
+    printf("can't open file\n");
+    return false;
+  }
+  
+  while(!feof(fp)){
+    fscanf(fp,"%ld %ld %ld",&a,&b,&m);
+    printf("a:%-20ld b:%-20ld m:%-20ld ans:%-20ld\n",a,b,m,calculator(a,b,m));
   }
   ret = calculator(a1,b1,m1);
 #endif
@@ -38,7 +40,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
 #endif
   finish=clock();
   double duration = (double)(finish-start)/CLOCKS_PER_SEC;
-  printf("%f seconds on p1.c and the answer is ",duration);
+  printf("%f seconds on p1.c and the answer of input is ",duration);
   return ret;
   
   
