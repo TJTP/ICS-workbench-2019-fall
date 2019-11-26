@@ -22,7 +22,7 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
     a = rand() % 100000;
     b = rand() % 100000;
     m = rand() % 100000;
-    printf("a is %ld, b is %ld, m is %ld, test sample %d is %ld\n",a,b,m,i,calculator(a,b,m));
+    printf("a : %ld, b : %ld, m : %ld, ID: %d result: %ld\n",a,b,m,i,calculator(a,b,m));
   }
   ret = calculator(a1,b1,m1);
 #endif
