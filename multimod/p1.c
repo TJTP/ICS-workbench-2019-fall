@@ -1,9 +1,11 @@
 #include "multimod.h"
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define bit 20
 //2的64次方为18446744073709551616，共20位
+#define COUNTING
 
 typedef struct {
   int len;
@@ -12,8 +14,20 @@ typedef struct {
 
 static NUM subtract(NUM t,NUM m);
 
+#ifdef COUNTING
+void test(){
+  for(int i = 1;i<=20;i++){
+    srand((unsigned)time(NULL));
+    int64_t a = rand() % 0x8000000000000000;
+    int64_t b = rand() % 0x8000000000000000;
+    int64_t m = rand() % 0x8000000000000000;
+    printf("test sample %d is %ld\n",i,multimod_p1(a,b,m));
+  }
+}
+#endif
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
+
   NUM num1,num2,num3;
   num1.len=0,num2.len=0,num3.len=0;
   while(a){
