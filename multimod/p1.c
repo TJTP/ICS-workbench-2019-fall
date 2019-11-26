@@ -73,6 +73,7 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
   //printf("%d\n",tmp.len);
 
   NUM r = mod(tmp,num3);
+  printf("%d\n",r.len);
   int64_t result = 0;
   int64_t base = 1;
   for(int i = 0;i<r.len;i++){
