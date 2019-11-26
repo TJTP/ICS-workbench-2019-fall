@@ -14,7 +14,7 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
   int64_t r = 0;
   int64_t base = 0;
   for (int i = 0; i<bit; i++){
-    r+=bnum1[i]*(b<<base);
+    r+=(bnum1[i]*(b<<base))%m;
     base+=1;
   }
   
