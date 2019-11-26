@@ -28,9 +28,10 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
     printf("can't open file\n");
     return false;
   }
-  
-  while(!feof(fp)){
-    fscanf(fp,"%ld %ld %ld",&a,&b,&m);
+  bool flag = true;
+  while(flag){
+    int f = fscanf(fp,"%ld %ld %ld",&a,&b,&m);
+    if(!f) flag = false;
     int64_t cal = calculator(a,b,m);
     printf("a:%20ld b:%20ld m:%20ld ans:%20ld\n",a,b,m,cal);
   }
