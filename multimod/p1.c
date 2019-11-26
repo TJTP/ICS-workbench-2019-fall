@@ -6,7 +6,7 @@
 
 #define bit 20
 //2的64次方为9223372036854775808，共19位
-//#define COUNTING
+#define COUNTING
 
 typedef struct {
   int len;
@@ -110,7 +110,7 @@ static NUM subtract(NUM t,NUM m){
   NUM r=t;
   while(1){
     r=t;
-    printf("hahaha\n");
+    
     for (int i=0;i<m.len;i++){//逐位作差
 
       t.s[i] -= m.s[i];
