@@ -68,7 +68,7 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
     num3.len++;
   }
   printf("%d\n",num3.len);
-  
+
   NUM tmp = mul(num1,num2);
   printf("%d\n",tmp.len);
 
@@ -104,7 +104,8 @@ static NUM mul(NUM a,NUM b){
 bool compare(NUM t, NUM m){
   if(t.len<m.len) return false;
   else if(t.len >m.len) return true;
-  for (int i = t.len-1;i>=0;i--){
+
+  for (int i = t.len-1; i>=0; i--){
     if(t.s[i] > m.s[i]) return true;
     else if(t.s[i] < m.s[i]) return false;
   }
@@ -120,25 +121,23 @@ static NUM mod (NUM t, NUM m){
   }
   return tmp;
 }
-static NUM subtract(NUM t,NUM m){   
-  for (int i=0;i<m.len;i++){//逐位作差
-    t.s[i] -= m.s[i];
-    if(t.s[i] < 0){
-      for (int j = i+1; j<t.len;j++){
-        if(t.s[j]>0){//找到借位所在的位时
-          t.s[i] += 10;//当前位加上10
-          t.s[j] -= 1;//被借的位减去1
-          for(int k=j-1;k>i;k--){
-            t.s[k]=9;
-            k--;
-          }
+static NUM subtract(NUM t,NUM m){
+  NUM tmp = t;   
+  for (int i=0; i<m.len;i++){//逐位作差
+    tmp.s[i] -= m.s[i];
+    if(tmp.s[i] < 0){
+      for (int j = i+1; j<tmp.len;j++){
+        if(tmp.s[j]>0){//找到借位所在的位时
+          tmp.s[i] += 10;//当前位加上10
+          tmp.s[j] -= 1;//被借的位减去1
+          for(int k=j-1;k>i;k--) tmp.s[k]=9;
           break;
         }
       }
     }
   }
-  if (t.s[t.len-1]==0) t.len-=1;
-  return t;
+  if (tmp.s[tmp.len-1] == 0) tmp.len-=1;
+  return tmp;
   
   
 }
