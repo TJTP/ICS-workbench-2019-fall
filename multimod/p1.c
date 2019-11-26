@@ -24,10 +24,11 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
 #ifdef COUNTING
   for(int i = 1;i<=20;i++){
     srand((unsigned)time(NULL));
-    a = rand() % 0x8000000000000000;
-    b = rand() % 0x8000000000000000;
-    m = rand() % 0x8000000000000000;
-    printf("test sample %d is %ld\n",i,calculator(a,b,m));
+    //0x8000000000000000
+    a = rand() % 100000;
+    b = rand() % 100000;
+    m = rand() % 100000;
+    printf("a is %ld, b is %ld, m is %ld, test sample %d is %ld\n",a,b,m,i,calculator(a,b,m));
   }
   ret = calculator(a1,b1,m1);
 #endif
