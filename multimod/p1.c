@@ -13,7 +13,7 @@ typedef struct {
 } NUM;
 
 static NUM subtract(NUM t,NUM m);
-
+extern int64_t calculator(int64_t a,int64_t b, int64_t m);
 
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
