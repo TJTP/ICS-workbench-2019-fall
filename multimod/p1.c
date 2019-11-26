@@ -107,7 +107,9 @@ bool compare(NUM t, NUM m){
     if(t.s[i] > m.s[i]) return true;
     else if(t.s[i] < m.s[i]) return false;
   }
+  return true;
 }
+
 static NUM mod (NUM t, NUM m){
   NUM tmp = t;
   int64_t q = 0;
