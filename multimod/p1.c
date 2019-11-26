@@ -23,7 +23,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   int64_t ret = 0;
 #ifdef COUNTING
   int64_t a1=a,b1=b,m1=m;
-  FILE *fp = fopen("../../srand_num","r");
+  FILE *fp = fopen("../../rand_num","r");
   if(!fp){
     printf("can't open file\n");
     return false;
