@@ -24,8 +24,9 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
   else{
     for(int i = 0;i<bit;i++){
       int tmp = b;
-      r=r+(bnum1[i]*(tmp<<i))%m;
+      r+=(bnum1[i]*(tmp<<i))%m;
     }
+    r%=m;
   }
 
  
