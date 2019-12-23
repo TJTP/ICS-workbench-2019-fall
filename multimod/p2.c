@@ -15,7 +15,7 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
   
   int64_t ret = 0; 
 #ifdef COUNTING
-  int64_t a1=a,b1=b,m1=m;
+  int64_t a1=a, b1=b, m1=m, res;
   FILE *fp = fopen("../../rand_num","r");
   if(!fp){
     printf("can't open file\n");
@@ -23,9 +23,8 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
   }
   
   while(!feof(fp)){
-    fscanf(fp,"%ld %ld %ld",&a,&b,&m);
-    int64_t cal = calculator(a,b,m);
-    printf("a:%20ld b:%20ld m:%20ld ans:%20ld\n",a,b,m,cal);
+    fscanf(fp,"%ld %ld %ld %ld",&a, &b, &m, &res);
+    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld\n", a, b, m, res, calculator(a,b,m));
   }
   fclose(fp);
   ret = calculator(a1,b1,m1);

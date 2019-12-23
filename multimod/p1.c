@@ -4,20 +4,24 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define bit 20
-//2的64次方为9223372036854775808，共19位
-#define COUNTING
+#define bit 20 //2的64次方为9223372036854775808，共19位
+//#define COUNTING
+
 
 typedef struct {
   int len;
-  int s[bit*2];
+  int s[bit * 2];
 } NUM;
 
-static NUM subtract(NUM t,NUM m);
-static int64_t calculator(int64_t a,int64_t b, int64_t m);
-static bool compare(NUM t, NUM m);
-static NUM mod(NUM t, NUM m);
-static NUM mul(NUM a, NUM b);
+
+static NUM subtract(NUM , NUM);
+static int64_t calculator(int64_t, int64_t, int64_t);
+static bool compare(NUM, NUM);
+static NUM mod(NUM, NUM);
+static NUM mul(NUM, NUM);
+
+
+
 
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   // TODO: implement
@@ -34,8 +38,7 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   
   while(!feof(fp)){
     fscanf(fp,"%ld %ld %ld %ld", &a, &b, &m, &res);
-    int64_t cal = calculator(a,b,m);
-    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld\n", a, b, m, res, cal);
+    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld\n", a, b, m, res, calculator(a,b,m));
   }
   fclose(fp);
   ret = calculator(a1,b1,m1);
@@ -53,13 +56,13 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
   NUM num1,num2,num3;
   num1.len=0,num2.len=0,num3.len=0;
   while(a){
-    num1.s[num1.len]=a%10;
-    a/=10;
+    num1.s[num1.len]=a % 10;
+    a /= 10;
     num1.len++;
   }
   while(b){
-    num2.s[num2.len]=b%10;
-    b/=10;
+    num2.s[num2.len]=b % 10;
+    b /= 10;
     num2.len++;
   }
   while(m){
@@ -67,80 +70,83 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
     m/=10;
     num3.len++;
   }
-  //printf("%d\n",num3.len);
 
-  NUM tmp = mul(num1,num2);
-  //printf("%d\n",tmp.len);
-
-  NUM r = mod(tmp,num3);
-  //printf("%d\n",r.len);
+  NUM tmp = mul(&num1, &num2);
+  NUM r = mod(&tmp, &num3);
+  
   int64_t result = 0;
   int64_t base = 1;
-  for(int i = 0;i<r.len;i++){
-    result+=r.s[i]*base;
-    base*=10;
+  for(int i = 0; i < r.len; i++){
+    result += r.s[i] * base;
+    base *= 10;
   }
   return result;
 }
 
-static NUM mul(NUM a,NUM b){
+static NUM mul(NUM * num1,NUM * num2){
   NUM res;
-  res.len=a.len+b.len-1;
-  for (int i=0;i<bit*2;i++)  res.s[i]=0;
+  res.len=num1->len + num2->len - 1;
 
-  for(int i=0;i<a.len;i++){
-    for(int j =0; j<b.len;j++)
-      res.s[i+j] += a.s[i]*b.s[j];
+  for(int i = 0; i < num1->len; i++){
+    for(int j = 0; j<num2->len; j++)
+      res.s[i+j] += num1->s[i] * num2->s[j];
   }
 
-  for(int i = 0;i<res.len;i++){
-    if(res.s[i] >=10){
+  bool update_len = false;
+  for(int i = 0; i < res.len; i++){
+    if(res.s[i] >= 10){
       res.s[i+1] += res.s[i]/10;
       res.s[i] %= 10;
+      if (i == res.len - 1)
+        update_len = true;
     }
   }
-  if (res.s[res.len] > 0) res.len+=1;
+  if (update_len) res.len+=1;
+  for (int i = res.len; i < bit * 2; i++)
+    res.s[i] = 0;
+
   return res;
 }
 
-bool compare(NUM t, NUM m){
-  if(t.len<m.len) return false;
-  else if(t.len >m.len) return true;
+bool compare(NUM * num1, NUM * num2){//num1比num2大或相等时，返回true
+  if (num1->len < num2->len) 
+    return false;
+  else if(num1->len > num2->len)
+    return true;
 
-  for (int i = t.len-1; i>=0; i--){
-    if(t.s[i] > m.s[i]) return true;
-    else if(t.s[i] < m.s[i]) return false;
+  for (int i = num1->len-1; i >= 0; i--){
+    if (num1->s[i] > num2->s[i]) 
+      return true;
+    else if (num1->s[i] < num2->s[i]) 
+      return false;
   }
   return true;
+  
 }
 
-static NUM mod (NUM t, NUM m){
-  NUM tmp = t;
-  int64_t q = 0;
-  while(compare(tmp,m)){
-    tmp = subtract(tmp,m);
-    q++;
-  }
-  return tmp;
+static NUM mod (NUM * num1, NUM * num2){
+  while (compare(num1, num2))
+    subtract(num1, num2);
+  return *num1;
 }
-static NUM subtract(NUM t,NUM m){
-  NUM tmp = t;   
-  for (int i=0; i<m.len;i++){//逐位作差
-    tmp.s[i] -= m.s[i];
-    if(tmp.s[i] < 0){
-      for (int j = i+1; j<tmp.len;j++){
-        if(tmp.s[j]>0){//找到借位所在的位时
-          tmp.s[i] += 10;//当前位加上10
-          tmp.s[j] -= 1;//被借的位减去1
-          break;
-        }
-        else tmp.s[j] = 9;
+
+static NUM subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
+  for (int i = 0; i < num2->len; i++){
+    num1->s[i] -= num2->s[i];
+    if (num1->s[i] < 0){
+      num1->s[i] += 10;
+      int j = i + 1;
+      while (num1->s[j] == 0){
+        num1->s[j] = 9;
+        j++;
       }
+      num1->s[j] -= 1;
+      if (num1->s[j] == 0)
+        num1->len -= 1;
     }
   }
-  if (tmp.s[tmp.len-1] == 0) tmp.len-=1;
-  
-  return tmp;
+
+  return *num1;
   
   
 }
