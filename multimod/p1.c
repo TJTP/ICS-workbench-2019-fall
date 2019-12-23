@@ -130,7 +130,7 @@ static void mod (NUM * num1, NUM * num2){
 }
 
 static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
-  for (int i = 0; i < num2->len; i++){
+  /*for (int i = 0; i < num2->len; i++){
     num1->s[i] -= num2->s[i];
     if (num1->s[i] < 0){
       for (int j = i+1; j < num1->len; j++){
@@ -146,8 +146,9 @@ static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
   }
 
   while (num1->s[num1->len - 1] == 0 && (num1->len > 1))
-    num1->len -= 1;
-  /*int carry = 0;
+    num1->len -= 1;*/
+  
+  int carry = 0;
   for (int i = 0; i < num1->len; i++){
     num1->s[i] -= carry;
     if (i < num2->len)
@@ -158,7 +159,9 @@ static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
     }
     else 
       carry = 0;
-  }*/
+  }
+  while (num1->len > 1 && num1->s[num1->len -1] == 0)
+    num1->len -= 1;
 
 
   
