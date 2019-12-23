@@ -14,10 +14,10 @@ typedef struct {
 } NUM;
 
 
-static NUM subtract(NUM *, NUM *);
+static void subtract(NUM *, NUM *);
 static int64_t calculator(int64_t, int64_t, int64_t);
 static bool compare(NUM *, NUM *);
-static NUM mod(NUM *, NUM *);
+static void mod(NUM *, NUM *);
 static NUM mul(NUM *, NUM *);
 
 
@@ -71,13 +71,13 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
     num3.len++;
   }
 
-  NUM tmp = mul(&num1, &num2);
-  NUM r = mod(&tmp, &num3);
+  NUM product = mul(&num1, &num2);
+  mod(&product, &num3);
   
   int64_t result = 0;
   int64_t base = 1;
-  for(int i = 0; i < r.len; i++){
-    result += r.s[i] * base;
+  for(int i = 0; i < product.len; i++){
+    result += product.s[i] * base;
     base *= 10;
   }
   return result;
@@ -121,33 +121,34 @@ bool compare(NUM * num1, NUM * num2){//num1比num2大或相等时，返回true
       return false;
   }
   return true;
-  
 }
 
-static NUM mod (NUM * num1, NUM * num2){
+
+static void mod (NUM * num1, NUM * num2){
   while (compare(num1, num2))
     subtract(num1, num2);
   return *num1;
 }
 
-static NUM subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
+static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
   for (int i = 0; i < num2->len; i++){
     num1->s[i] -= num2->s[i];
     if (num1->s[i] < 0){
       num1->s[i] += 10;
       int j = i + 1;
-      while (num1->s[j] == 0){
-        num1->s[j] = 9;
-        j++;
-      }
-      num1->s[j] -= 1;
+      for (int j = i+1; j < num1->len; j++){
+        if(num1->s[j] > 0){//找到借位所在的位时
+          num1->s[i] += 10;//当前位加上10
+          num1->s[j] -= 1;//被借的位减去1
+          break;
+        }
+        else 
+          num1->s[j] = 9;
     }
   }
-  
+
   if (num1->s[num1->len - 1] == 0)
     num1->len -= 1;
-
-  return *num1;
   
   
 }
