@@ -127,7 +127,6 @@ bool compare(NUM * num1, NUM * num2){//num1比num2大或相等时，返回true
 static void mod (NUM * num1, NUM * num2){
   while (compare(num1, num2))
     subtract(num1, num2);
-  return *num1;
 }
 
 static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
