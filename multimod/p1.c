@@ -135,7 +135,6 @@ static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
     num1->s[i] -= num2->s[i];
     if (num1->s[i] < 0){
       num1->s[i] += 10;
-      int j = i + 1;
       for (int j = i+1; j < num1->len; j++){
         if(num1->s[j] > 0){//找到借位所在的位时
           num1->s[i] += 10;//当前位加上10
