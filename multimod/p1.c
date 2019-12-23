@@ -141,10 +141,11 @@ static NUM subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
         j++;
       }
       num1->s[j] -= 1;
-      if (num1->s[j] == 0)
-        num1->len -= 1;
     }
   }
+  
+  if (num1->s[num1->len - 1] == 0)
+    num1->len -= 1;
 
   return *num1;
   
