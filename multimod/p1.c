@@ -145,7 +145,7 @@ static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
     }
   }
 
-  while (num1->s[num1->len - 1] == 0)
+  while (num1->s[num1->len - 1] == 0 && num1->len > 1);
     num1->len -= 1;
   /*int carry = 0;
   for (int i = 0; i < num1->len; i++){
