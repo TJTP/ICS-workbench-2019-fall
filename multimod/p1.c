@@ -14,11 +14,11 @@ typedef struct {
 } NUM;
 
 
-static NUM subtract(NUM , NUM);
+static NUM subtract(NUM *, NUM *);
 static int64_t calculator(int64_t, int64_t, int64_t);
-static bool compare(NUM, NUM);
-static NUM mod(NUM, NUM);
-static NUM mul(NUM, NUM);
+static bool compare(NUM *, NUM *);
+static NUM mod(NUM *, NUM *);
+static NUM mul(NUM *, NUM *);
 
 
 
