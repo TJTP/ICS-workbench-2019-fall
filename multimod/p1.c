@@ -75,7 +75,8 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
 
   NUM product;
   product.len = num1.len + num2.len - 1;
-  
+  memset(product.s, 0, sizeof(product.s));
+
   mul(&product, &num1, &num2);
   mod(&product, &num3);
   
@@ -89,7 +90,6 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
 }
 
 static void mul(NUM * num3, NUM * num1,NUM * num2){
-
   for(int i = 0; i < num1->len; i++){
     for(int j = 0; j<num2->len; j++)
       num3->s[i+j] += num1->s[i] * num2->s[j];
@@ -105,7 +105,7 @@ static void mul(NUM * num3, NUM * num1,NUM * num2){
     }
   }
   if (update_len) 
-    num3->len+=1;
+    num3->len += 1;
 }
 
 bool compare(NUM * num1, NUM * num2){//num1比num2大或相等时，返回true
@@ -142,11 +142,26 @@ static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
         else 
           num1->s[j] = 9;
       }
-    } 
+    }
   }
 
-  if (num1->s[num1->len - 1] == 0)
+  while (num1->s[num1->len - 1] == 0)
     num1->len -= 1;
+  /*int carry = 0;
+  for (int i = 0; i < num1->len; i++){
+    num1->s[i] -= carry;
+    if (i < num2->len)
+      num1->s[i] -= num2->s[i];
+    if (num1->s[i] < 0){
+      num1->s[i] += 10;
+      carry = 1;
+    }
+    else 
+      carry = 0;
+  }*/
+
+
+  
 }
 
 
