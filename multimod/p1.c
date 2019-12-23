@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define bit 20 //2的64次方为9223372036854775808，共19位
 //#define COUNTING
@@ -18,7 +19,7 @@ static void subtract(NUM *, NUM *);
 static int64_t calculator(int64_t, int64_t, int64_t);
 static bool compare(NUM *, NUM *);
 static void mod(NUM *, NUM *);
-static NUM mul(NUM *, NUM *);
+static void mul(NUM *, NUM *, NUM *);
 
 
 
@@ -71,7 +72,11 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
     num3.len++;
   }
 
-  NUM product = mul(&num1, &num2);
+  NUM product;
+  product.len = num1.len + num2.len - 1;
+  memset(product.s, 0, sizeof(product.s));
+
+  mul(&product, &num1, &num2);
   mod(&product, &num3);
   
   int64_t result = 0;
@@ -83,29 +88,24 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
   return result;
 }
 
-static NUM mul(NUM * num1,NUM * num2){
-  NUM res;
-  res.len=num1->len + num2->len - 1;
+static void mul(NUM * num3, NUM * num1,NUM * num2){
 
   for(int i = 0; i < num1->len; i++){
     for(int j = 0; j<num2->len; j++)
-      res.s[i+j] += num1->s[i] * num2->s[j];
+      num3->s[i+j] += num1->s[i] * num2->s[j];
   }
 
   bool update_len = false;
-  for(int i = 0; i < res.len; i++){
-    if(res.s[i] >= 10){
-      res.s[i+1] += res.s[i]/10;
-      res.s[i] %= 10;
-      if (i == res.len - 1)
+  for(int i = 0; i < num3->len; i++){
+    if(num3->s[i] >= 10){
+      num3->s[i+1] += num3->s[i]/10;
+      num3->s[i] %= 10;
+      if (i == num3->len - 1)
         update_len = true;
     }
   }
-  if (update_len) res.len+=1;
-  for (int i = res.len; i < bit * 2; i++)
-    res.s[i] = 0;
-
-  return res;
+  if (update_len) 
+    num3->len+=1;
 }
 
 bool compare(NUM * num1, NUM * num2){//num1比num2大或相等时，返回true
@@ -114,7 +114,7 @@ bool compare(NUM * num1, NUM * num2){//num1比num2大或相等时，返回true
   else if(num1->len > num2->len)
     return true;
 
-  for (int i = num1->len-1; i >= 0; i--){
+  for (int i = num1->len - 1; i >= 0; i--){
     if (num1->s[i] > num2->s[i]) 
       return true;
     else if (num1->s[i] < num2->s[i]) 
