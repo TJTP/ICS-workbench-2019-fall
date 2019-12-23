@@ -142,13 +142,12 @@ static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
         }
         else 
           num1->s[j] = 9;
-    }
+      }
+    } 
   }
-
+  
   if (num1->s[num1->len - 1] == 0)
     num1->len -= 1;
-  
-  
 }
 
 
