@@ -36,7 +36,7 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
 #endif
   finish=clock();
   double duration = (double)(finish-start)/CLOCKS_PER_SEC;
-  printf("%f seconds on p2.c and the answer is ",duration);
+  printf("%f seconds on p3.c and the answer is ",duration);
   return ret;
   
 }
