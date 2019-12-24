@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #define bit 63
-//#define COUNTING
+#define COUNTING
 
 static int64_t calculator(int64_t a, int64_t b, int64_t m);
 
