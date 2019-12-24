@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
+#define bit 63
 #define COUNTING
 
 static int64_t calculator(int64_t a, int64_t b, int64_t m);
@@ -43,7 +43,7 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
 
 
 static int64_t calculator(int64_t a, int64_t b, int64_t m){
-  uint64_t res = 0;
+  /*uint64_t res = 0;
   if (m == 1) return 0;
   if (m == 2) return (a & 1) && (b & 1);
 
@@ -60,5 +60,22 @@ static int64_t calculator(int64_t a, int64_t b, int64_t m){
     }
     a >>= 1;
   }
-  return (int64_t)res % m;
+  return (int64_t)res % m;*/
+  
+  int a_bin[bit];
+  for (int i = 0; i < bit; i++) 
+    a_bin[i] = 0;
+  int len = 0;
+  for (int i = 0; a && i < bit; i++){
+    a_bin[i] = a % 2;
+    a /= 2;
+    len +=1;
+  }
+  uint64_t res = 0;
+  uint64_t base = 0;
+  for (int i = 0; i < len; i++){
+    res += ((a_bin[i] << base) % m + b % m) % m;
+    base +=1;
+  }
+  return res;
 }
