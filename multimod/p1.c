@@ -15,13 +15,105 @@ typedef struct {
 } NUM;
 
 
-static void subtract(NUM *, NUM *);
-static int64_t calculator(int64_t, int64_t, int64_t);
+/*static void subtract(NUM *, NUM *);
+
 static bool compare(NUM *, NUM *);
 static void mod(NUM *, NUM *);
-static void mul(NUM *, NUM *, NUM *);
+static void mul(NUM *, NUM *, NUM *);*/
+
+static int64_t calculator(int64_t, int64_t, int64_t);
+
+static void mul(NUM * num3, NUM * num1,NUM * num2){
+  for(int i = 0; i < num1->len; i++){
+    for(int j = 0; j<num2->len; j++)
+      num3->s[i+j] += num1->s[i] * num2->s[j];
+  }
+
+  bool update_len = false;
+  for(int i = 0; i < num3->len; i++){
+    if(num3->s[i] >= 10){
+      num3->s[i+1] += num3->s[i]/10;
+      num3->s[i] %= 10;
+      if (i == num3->len - 1)
+        update_len = true;
+    }
+  }
+  if (update_len) 
+    num3->len += 1;
+}
+
+bool compare(NUM * num1, NUM * num2){//num1比num2大或相等时，返回true
+  if (num1->len < num2->len) 
+    return false;
+  else if(num1->len > num2->len)
+    return true;
+
+  for (int i = num1->len - 1; i >= 0; i--){
+    if (num1->s[i] > num2->s[i]) 
+      return true;
+    else if (num1->s[i] < num2->s[i]) 
+      return false;
+  }
+  return true;
+}
 
 
+static void mod (NUM * res, NUM  num1, NUM  num2){
+  /*while (compare(num1, num2))
+    subtract(num1, num2);*/
+
+  memset(res, 0, sizeof(res->s));
+  res->len = 0;
+
+  int i, j;
+  for(i = num1.len-1; i >= 0; i--) {
+    if(!(res->len == 1 && res->s[0] == 0)) {
+      for(j = res->len-1; j >= 0; j--)
+        res->s[j+1] = res->s[j];
+      res->len++;
+    }
+    res->s[0] = num1.s[i];
+    while(Compare(*res, &num2) >= 0) {
+      subtract(res, &num2);
+    }
+  }
+}
+
+
+static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
+  /*for (int i = 0; i < num2->len; i++){
+    num1->s[i] -= num2->s[i];
+    if (num1->s[i] < 0){
+      for (int j = i+1; j < num1->len; j++){
+        if(num1->s[j] > 0){//找到借位所在的位时
+          num1->s[i] += 10;//当前位加上10
+          num1->s[j] -= 1;//被借的位减去1
+          break;
+        }
+        else 
+          num1->s[j] = 9;
+      }
+    }
+  }
+
+  while (num1->s[num1->len - 1] == 0 && (num1->len > 1))
+    num1->len -= 1;*/
+  
+  int carry = 0;
+  for (int i = 0; i < num1->len; i++){
+    num1->s[i] -= carry;
+    if (i < num2->len)
+      num1->s[i] -= num2->s[i];
+    if (num1->s[i] < 0){
+      num1->s[i] += 10;
+      carry = 1;
+    }
+    else 
+      carry = 0;
+  }
+  while (num1->len > 1 && num1->s[num1->len -1] == 0)
+    num1->len -= 1;
+}
 
 
 int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
@@ -78,7 +170,7 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
   memset(product.s, 0, sizeof(product.s));
 
   mul(&product, &num1, &num2);
-  mod(&product, &num3);
+  mod(&product, product, num3);
   
   int64_t result = 0;
   int64_t base = 1;
@@ -88,83 +180,3 @@ static int64_t calculator(int64_t a,int64_t b, int64_t m){
   }
   return result;
 }
-
-static void mul(NUM * num3, NUM * num1,NUM * num2){
-  for(int i = 0; i < num1->len; i++){
-    for(int j = 0; j<num2->len; j++)
-      num3->s[i+j] += num1->s[i] * num2->s[j];
-  }
-
-  bool update_len = false;
-  for(int i = 0; i < num3->len; i++){
-    if(num3->s[i] >= 10){
-      num3->s[i+1] += num3->s[i]/10;
-      num3->s[i] %= 10;
-      if (i == num3->len - 1)
-        update_len = true;
-    }
-  }
-  if (update_len) 
-    num3->len += 1;
-}
-
-bool compare(NUM * num1, NUM * num2){//num1比num2大或相等时，返回true
-  if (num1->len < num2->len) 
-    return false;
-  else if(num1->len > num2->len)
-    return true;
-
-  for (int i = num1->len - 1; i >= 0; i--){
-    if (num1->s[i] > num2->s[i]) 
-      return true;
-    else if (num1->s[i] < num2->s[i]) 
-      return false;
-  }
-  return true;
-}
-
-
-static void mod (NUM * num1, NUM * num2){
-  while (compare(num1, num2))
-    subtract(num1, num2);
-}
-
-static void subtract(NUM * num1,NUM * num2){// num1是大于等于num2的
-  /*for (int i = 0; i < num2->len; i++){
-    num1->s[i] -= num2->s[i];
-    if (num1->s[i] < 0){
-      for (int j = i+1; j < num1->len; j++){
-        if(num1->s[j] > 0){//找到借位所在的位时
-          num1->s[i] += 10;//当前位加上10
-          num1->s[j] -= 1;//被借的位减去1
-          break;
-        }
-        else 
-          num1->s[j] = 9;
-      }
-    }
-  }
-
-  while (num1->s[num1->len - 1] == 0 && (num1->len > 1))
-    num1->len -= 1;*/
-  
-  int carry = 0;
-  for (int i = 0; i < num1->len; i++){
-    num1->s[i] -= carry;
-    if (i < num2->len)
-      num1->s[i] -= num2->s[i];
-    if (num1->s[i] < 0){
-      num1->s[i] += 10;
-      carry = 1;
-    }
-    else 
-      carry = 0;
-  }
-  while (num1->len > 1 && num1->s[num1->len -1] == 0)
-    num1->len -= 1;
-
-
-  
-}
-
-
