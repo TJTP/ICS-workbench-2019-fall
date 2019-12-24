@@ -73,7 +73,7 @@ static void mod (NUM * res, NUM  num1, NUM  num2){
       res->len++;
     }
     res->s[0] = num1.s[i];
-    while(compare(res, &num2) >= 0) {
+    while(compare(res, &num2)) {
       subtract(res, &num2);
     }
   }
