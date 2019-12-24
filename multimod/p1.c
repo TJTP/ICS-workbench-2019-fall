@@ -35,7 +35,8 @@ int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
   
   while(!feof(fp)){
     fscanf(fp,"%ld %ld %ld %ld", &a, &b, &m, &res);
-    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld\n", a, b, m, res, calculator(a,b,m));
+    uint64_t ans = calculator(a,b,m);
+    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld corectness:%s\n", a, b, m, res, ans, res - ans ? "WRONG" : "RIGHT");
   }
   fclose(fp);
   ret = calculator(a1,b1,m1);
