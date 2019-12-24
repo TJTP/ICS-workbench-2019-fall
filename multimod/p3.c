@@ -21,12 +21,16 @@ int64_t multimod_p3(int64_t a, int64_t b, int64_t m) {
     return false;
   }
   
+  int cnt_right = 0;
   while(!feof(fp)){
     fscanf(fp,"%ld %ld %ld %ld",&a, &b, &m, &res);
     uint64_t ans = calculator(a,b,m);
-    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld cor:%s\n", a, b, m, res, ans, res - ans ? "WRONG" : "RIGHT");
+    bool cor = res - ans == 0 ? true : false;
+    cnt_right += 1;
+    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld cor:%s\n", a, b, m, res, ans, cor ? "RIGHT" : "WRONG");
   }
   fclose(fp);
+  printf("There are %d correct samples\n", cnt_right);
   ret = calculator(a1,b1,m1);
 #endif
 #ifndef COUNTING
