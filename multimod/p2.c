@@ -71,12 +71,12 @@ static int64_t calculator(int64_t a, int64_t b, int64_t m){
   int len = 0;
   for (int i = 0; a && i < bit; i++){
     a_bin[i] = a % 2;
-    a >> 1;
+    a >>= 1;
     len += 1;
   }
 
   int64_t res = 0;
-  int64_t base = 0;
+  //int64_t base = 0;
   for (int i = 0; i < len; i++){
     if (a_bin[i] == 1)
       res = (res % m +b % m) % m;
