@@ -26,7 +26,7 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
   while(!feof(fp)){
     fscanf(fp,"%ld %ld %ld %ld",&a, &b, &m, &res);
     uint64_t ans = calculator(a,b,m);
-    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld corectness:%s\n", a, b, m, res, ans, res - ans ? "WRONG" : "RIGHT");
+    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld cor:%s\n", a, b, m, res, ans, res - ans ? "WRONG" : "RIGHT");
   }
   fclose(fp);
   ret = calculator(a1,b1,m1);
@@ -71,15 +71,23 @@ static int64_t calculator(int64_t a, int64_t b, int64_t m){
   int len = 0;
   for (int i = 0; a && i < bit; i++){
     a_bin[i] = a % 2;
-    a /= 2;
+    a >> 1;
     len += 1;
   }
 
-  uint64_t res = 0;
-  uint64_t base = 0;
+  int64_t res = 0;
+  int64_t base = 0;
   for (int i = 0; i < len; i++){
-    res += ((a_bin[i] << base) % m * b % m) % m;
-    base += 1;
+    if (a_bin[i] == 1)
+      res = (res % m +b % m) % m;
+    if (b > m)
+      b = (b % m) << 1;
+    else{
+      if (b > (m >> 1))
+        b = b - m + b;
+      else 
+        b <<= 1;
+    }
   }
   return res % m;
 }
