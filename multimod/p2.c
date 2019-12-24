@@ -43,7 +43,7 @@ int64_t multimod_p2(int64_t a, int64_t b, int64_t m) {
 
 
 static int64_t calculator(int64_t a, int64_t b, int64_t m){
-  uint64_t res = 0;
+  /*uint64_t res = 0;
   if (m == 1) return 0;
   if (m == 2) return (a & 1) && (b & 1);
 
@@ -60,9 +60,9 @@ static int64_t calculator(int64_t a, int64_t b, int64_t m){
     }
     a >>= 1;
   }
-  return (int64_t)res % m;
+  return (int64_t)res % m;*/
 
-  /*if (m == 1) return 0;
+  if (m == 1) return 0;
   if (m == 2) return (a & 1) && (b & 1);
 
   int a_bin[bit];
@@ -76,7 +76,7 @@ static int64_t calculator(int64_t a, int64_t b, int64_t m){
     len += 1;
   }
 
-  int64_t res = 0;
+  uint64_t res = 0;
   for (int i = 0; i < len; i++){
     if (a_bin[i] == 1)
       res = (res % m + b % m) % m;
@@ -89,5 +89,5 @@ static int64_t calculator(int64_t a, int64_t b, int64_t m){
         b <<= 1;
     }
   }
-  return res % m;*/
+  return (int64_t)res % m;
 }
