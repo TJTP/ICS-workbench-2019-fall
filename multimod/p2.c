@@ -84,7 +84,7 @@ static int64_t calculator(int64_t a, int64_t b, int64_t m){
       b = (b % m) << 1;
     else{
       if (b > (m >> 1))
-        b = b - m + b;
+        b = (b - m + b) % m;
       else 
         b <<= 1;
     }
