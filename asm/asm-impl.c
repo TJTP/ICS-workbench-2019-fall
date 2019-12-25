@@ -14,9 +14,9 @@ int asm_popcnt(uint64_t n) {
   // TODO: implement
   int cnt = 0;
   asm("mov %%rdi, -0x18(%%rbp)\n"
-      "movl $0x0, -0x4(%%rbp)\n" // i
+      "movl $0x0, -0x8(%%rbp)\n" // i
       "jmp dest1\n"
-      "dest3: mov -0x4(%%rbp), %%eax\n"
+      "dest3: mov -0x8(%%rbp), %%eax\n"
       "mov -0x18(%%rbp), %%rdx\n"
       "mov %%eax, %%ecx\n"
       "shr %%cl, %%rdx\n"
@@ -25,8 +25,8 @@ int asm_popcnt(uint64_t n) {
       "test %%rax,%%rax\n"
       "je dest2\n"
       "addl $0x1, %0\n"
-      "dest2: addl $0x1, -0x4(%%rbp)\n"// i++
-      "dest1: cmpl $0x3f, -0x4(%%rbp)\n"
+      "dest2: addl $0x1, -0x8(%%rbp)\n"// i++
+      "dest1: cmpl $0x3f, -0x8(%%rbp)\n"
       "jle dest3\n"
       : "=g"(cnt)
       : "r"(n)
