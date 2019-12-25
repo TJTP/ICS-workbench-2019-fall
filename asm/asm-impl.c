@@ -13,7 +13,7 @@ int64_t asm_add(int64_t a, int64_t b) {
 int asm_popcnt(uint64_t n) {
   // TODO: implement
   int cnt = 0;
-  asm("mov %%rdi, -0x18(%%rbp)\n"
+  asm("mov %1, -0x18(%%rbp)\n"
       "movl $0x0, -0x8(%%rbp)\n" // i
       "jmp dest1\n"
       "dest3: mov -0x8(%%rbp), %%eax\n"
