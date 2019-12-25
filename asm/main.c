@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <assert.h>
 
-//static void setjmp_test0();
-//static void setjmp_test1();
+static void setjmp_test0();
+static void setjmp_test1();
 
 int main() {
   // TODO: add more tests here!
