@@ -19,7 +19,7 @@ int asm_popcnt(uint64_t n) {
       "dest3: mov -0x8(%%rbp), %%eax\n"
       "mov -0x18(%%rbp), %%rdx\n"
       "mov %%eax, %%ecx\n"
-      "shr %%cl, %%rdx\n"
+      "shr 0x1, %%rdx\n"
       "mov %%rdx, %%rax\n"
       "and $0x1, %%eax\n"//???
       "test %%rax,%%rax\n"
@@ -28,9 +28,9 @@ int asm_popcnt(uint64_t n) {
       "dest2: addl $0x1, -0x8(%%rbp)\n"// i++
       "dest1: cmpl $0x3f, -0x8(%%rbp)\n"
       "jle dest3\n"
-      : "=g"(cnt)
+      : "g"(cnt)
       : "r"(n)
-      :"%rax", "%eax", "%ecx", "%cl","%rdx"
+      :"%rax", "%eax", "%ecx","%rdx"
   );
   return cnt;
 }
