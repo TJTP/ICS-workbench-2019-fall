@@ -28,7 +28,7 @@ int asm_popcnt(uint64_t n) {
       "dest2: addl $0x1, -0x8(%%rbp)\n"// i++
       "dest1: cmpl $0x3f, -0x8(%%rbp)\n"
       "jle dest3\n"
-      : "+g"(cnt)
+      : "+r"(cnt)
       : "r"(n)
       :"%rax", "%eax", "%ecx","%rdx"
   );
