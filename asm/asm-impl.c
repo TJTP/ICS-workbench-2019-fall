@@ -3,7 +3,7 @@
 
 int64_t asm_add(int64_t a, int64_t b) {
   // TODO: implement
-  asm("add %1, %0;"
+  asm("add %0, %1;"
       : "+r"(a)
       : "r"(b)
   );
@@ -12,7 +12,11 @@ int64_t asm_add(int64_t a, int64_t b) {
 
 int asm_popcnt(uint64_t n) {
   // TODO: implement
-  return 0;
+  int cnt = 0;
+  asm(""
+
+  );
+  return cnt;
 }
 
 void *asm_memcpy(void *dest, const void *src, size_t n) {
