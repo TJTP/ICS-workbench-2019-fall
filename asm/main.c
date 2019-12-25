@@ -10,7 +10,7 @@
 int main() {
   // TODO: add more tests here!
   assert(asm_add(1, 2) == 3);
-  /*assert(asm_popcnt(0xffffffffffffffffull) == 64);
+  assert(asm_popcnt(0xffffffffffffffffull) == 64);
 
 
   // TODO: add memcpy tests here!
@@ -18,7 +18,7 @@ int main() {
 
   // setjmp test starts here
   setjmp_test0();
-  setjmp_test1();*/
+  setjmp_test1();
 }
 
 struct log_entry {
