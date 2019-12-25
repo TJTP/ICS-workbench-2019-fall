@@ -10,8 +10,8 @@ static void setjmp_test1();
 int main() {
   // TODO: add more tests here!
     //add test
-  //assert(asm_add(1, 2) == 3);
-  //assert(asm_add(13154,135145) == 13154 + 135145);
+  assert(asm_add(1, 2) == 3);
+  assert(asm_add(13154,135145) == 13154 + 135145);
     //popcnt test
   assert(asm_popcnt(0xffffffffffffffffull) == 64);
   //assert(asm_popcnt(0xff) == 8);
