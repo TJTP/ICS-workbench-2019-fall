@@ -30,7 +30,7 @@ int asm_popcnt(uint64_t n) {
       "jle dest3\n"
       : "+r"(cnt)
       : "r"(n)
-      :"%rax", "%eax", "%ecx","%rdx"
+      :"%rax", "%eax", "%ecx","%rdx","memory"
   );
   return cnt;
 }
