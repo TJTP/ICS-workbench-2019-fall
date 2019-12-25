@@ -47,7 +47,7 @@ int asm_popcnt(uint64_t n) {
       "mov -0x18(%%rbp), %[out]\n"
       : [out] "+g"(cnt)
       : [in] "r" (n)
-      : "%rax","cc","memory");
+      : "%rax","cc","memory"
   );
   return cnt;
 }
