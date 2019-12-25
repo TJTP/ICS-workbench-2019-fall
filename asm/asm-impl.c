@@ -3,7 +3,10 @@
 
 int64_t asm_add(int64_t a, int64_t b) {
   // TODO: implement
-  
+  asm("add %1 %0;"
+      : "+r"(a)
+      : "r"(b)
+  );
   return 0;
 }
 
