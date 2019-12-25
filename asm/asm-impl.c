@@ -3,7 +3,7 @@
 
 int64_t asm_add(int64_t a, int64_t b) {
   // TODO: implement
-  asm("add %0, %1;"
+  asm("add %1, %0;"
       : "+r"(a)
       : "r"(b)
   );
@@ -13,8 +13,24 @@ int64_t asm_add(int64_t a, int64_t b) {
 int asm_popcnt(uint64_t n) {
   // TODO: implement
   int cnt = 0;
-  asm(""
-
+  asm("movl %%rdi, -0x18(%%rbp)\n"
+      "movl $0x0, -0x4(%%rbp)\n" // i
+      "jmp dest1\n"
+      "dest3: mov -0x4(%%rbp) %%eax\n"
+      "mov -0x18(%%rbp), %%rdx\n"
+      "mov %%eax, %%ecx\n"
+      "shr %%cl, %%rdx\n"
+      "mov %%rdx, %%rax\n"
+      "and $0x1, %%eax\n"//???
+      "test %%rax,%%rax\n"
+      "je dest2\n"
+      "addl $0x1, %0\n"
+      "dest2: addl $0x1, -0x4(%%rbp)\n"// i++
+      "dest1: cmpl $0x3f, -0x4(%%rbp)"
+      "jle dest3\n"
+      : "g"(cnt)
+      : "r"(n)
+      :"%rax", "%eax", "%ecx", "%cl","%rdx"
   );
   return cnt;
 }
