@@ -62,6 +62,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
       //"retq\n"
       :
       :"r"(dest), "r"(src), "r"(n), "r"(ret) //占位符0, 1, 2, 3
+      :"%rax", "%edx", "%rdx", "%dl"
   );
   return ret;
 }
