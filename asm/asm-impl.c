@@ -83,7 +83,7 @@ int asm_setjmp(asm_jmp_buf env) {
       "mov %%rax, 0x38(%%rdi)\n" 
       :
       :"m"(env) //占位符0
-      :"%rax", "memory"
+      :"%rax", "memory", "%rdi", "%rdx"
 
       /*"mov %[env], %%rdx\n"
       "mov %%rbx, (%%rdx)\n" // * 保存rbx
