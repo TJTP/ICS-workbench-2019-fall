@@ -4,11 +4,12 @@
 #include <stdlib.h>
 #include <assert.h>
 
+
 static void setjmp_test0();
 static void setjmp_test1();
 
 int main() {
-  Log("Please use -O0 to compile my lab2\n");
+  printf("Please use -O0 to compile my lab2\n");
   // TODO: add more tests here!
     //add test
   assert(asm_add(1, 2) == 3);
