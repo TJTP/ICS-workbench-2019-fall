@@ -71,7 +71,7 @@ int asm_setjmp(asm_jmp_buf env) {
   // TODO: implement
   asm("mov %0, %%rdi\n"
       "mov %%rbx, (%%rdi)\n"
-      "mov (%%rbp), %%rax\n"
+      "mov (%%rbp, %%rax\n"
       "mov %%rax, 0x8(%%rdi)\n"
       "mov %%r12, 0x10(%%rdi)\n"
       "mov %%r13, 0x18(%%rdi)\n"
@@ -99,12 +99,10 @@ void asm_longjmp(asm_jmp_buf env, int val) {
       "mov %1, %%rax\n"
       "mov 0x30(%%rdi), %%rsp\n"
       "mov 0x8(%%rdi), %%rbp\n"
-      //"mov %%r8, %%rsp\n"
-      //"mov %%r9, %%rbp\n"
       "mov 0x38(%%rdi), %%rdx\n"//pc的值先存入rdx，在后面通过jmp指令实现pc寄存器加载
       "jmpq *%%rdx\n"
       :
       :"m"(env), "m"(val) //占位符0， 1
-      :"memory"
+      :"memory", "%rdi"
   );
 }
