@@ -104,7 +104,7 @@ void asm_longjmp(asm_jmp_buf env, int val) {
       "mov 0x38(%%rdi), %%rdx\n"//pc的值先存入rdx，在后面通过jmp指令实现pc寄存器加载
       "jmpq *%%rdx\n"
       :
-      :"m"(env), "m"(val) //占位符0， 1
+      :"m"(env), "r"(val) //占位符0， 1
       :"memory"
 
   );
