@@ -30,7 +30,7 @@ int asm_popcnt(uint64_t n) {
       "jle dest3\n"
       : "+r"(cnt) //占位符 %0
       : "r"(n) //占位符 %1
-      :"%rax", "%eax", "%ecx","%rdx","%cl"
+      :"%rax", "%eax", "%ecx","%rdx"
       
   );
   return cnt;
