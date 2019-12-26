@@ -69,6 +69,23 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
 
 int asm_setjmp(asm_jmp_buf env) {
   // TODO: implement
+  asm("mov %0, %%edi\n"
+      "xor %%esi, %%esi\n"
+      "mov %%rbx, (%%rdi)\n"
+      "mov %%rbp, %%rax\n"
+      "mov %%rax, 0x8(%%rdi)\n"
+      "mov %%r12, 0x10(%%rdi)\n"
+      "mov %%r13, 0x18(%%rdi)\n"
+      "mov %%r14, 0x20(%%rdi)\n"
+      "mov %%r15, 0x28(%%rdi)\n"
+      "lea 0x10(%%rsp), %%rdx\n"//rsp的旧值
+      "mov %%rdx, 0x30(%%rdi)\n"
+      "mov 0x8(%%rsp), %%rax\n"//pc的值
+      "mov %%rax, 0x38(%%rdi)\n" 
+      :
+      :"m"(env) //占位符0
+      :"%rax", "%rdx", "%rdi", "%edi", "memory"
+  );
   return 0;
 }
 
