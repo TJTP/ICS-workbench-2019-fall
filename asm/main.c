@@ -21,6 +21,10 @@ int main() {
 
   // TODO: add memcpy tests here!
   assert(asm_memcpy(NULL, NULL, 0) == NULL);
+  char src[] = "This is a test string.";
+  char dst[50];
+  char *tmp = dst;
+  assert(asm_memcpy(dst, src, 23) == tmp);
 
   // setjmp test starts here
   setjmp_test0();
