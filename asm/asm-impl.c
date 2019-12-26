@@ -78,9 +78,9 @@ int asm_setjmp(asm_jmp_buf env) {
       "mov %%r13, 0x18(%%rdi)\n"
       "mov %%r14, 0x20(%%rdi)\n"
       "mov %%r15, 0x28(%%rdi)\n"
-      "lea 0x10(%%rsp), %%rdx\n"//rsp的旧值
+      "lea 0x8(%%rsp), %%rdx\n"//rsp的旧值
       "mov %%rdx, 0x30(%%rdi)\n"
-      "mov 0x8(%%rsp), %%rax\n"//pc的值
+      "mov (%%rsp), %%rax\n"//pc的值
       "mov %%rax, 0x38(%%rdi)\n" 
       :
       :"m"(env) //占位符0
