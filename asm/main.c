@@ -8,7 +8,7 @@ static void setjmp_test0();
 static void setjmp_test1();
 
 int main() {
-  // TODO: add more tests here!
+  /*// TODO: add more tests here!
     //add test
   assert(asm_add(1, 2) == 3);
   assert(asm_add(13154,135145) == 13154 + 135145);
@@ -31,7 +31,7 @@ int main() {
   char src2[] = "This is test2.";
   char dst2[30];
   char *tmp2 = dst2;
-  assert(asm_memcpy(dst2, src2, 10) == tmp2);
+  assert(asm_memcpy(dst2, src2, 10) == tmp2);*/
 
   // setjmp test starts here
   setjmp_test0();
