@@ -69,7 +69,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
 
 int asm_setjmp(asm_jmp_buf env) {
   // TODO: implement
-  asm("mov %0, %%rdi\n"
+  asm(//"mov %0, %%rdi\n"
       "mov %%rbx, (%%rdi)\n"
       "mov %%rbp, %%rax\n"
       "mov %%rax, 0x8(%%rdi)\n"
