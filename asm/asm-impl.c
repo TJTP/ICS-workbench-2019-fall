@@ -90,7 +90,7 @@ int asm_setjmp(asm_jmp_buf env) {
 
 void asm_longjmp(asm_jmp_buf env, int val) {
   // TODO: implement
-  asm("mov %0, %%rdi\n"
+  asm(/*"mov %0, %%rdi\n"
       "mov (%%rdi), %%rbx\n"
       "mov 0x10(%%rdi), %%r12\n"
       "mov 0x18(%%rdi), %%r13\n"
@@ -105,7 +105,21 @@ void asm_longjmp(asm_jmp_buf env, int val) {
       "jmpq *%%rdx\n"
       :
       :"m"(env), "m"(val) //占位符0， 1
-      :"memory"
+      :"memory"*/
+      "mov %[env], %%rdx\n"
+      "mov (%%rdx), %%rbx\n"
+      "mov 0x10(%%rdx), %%r12\n"
+      "mov 0x18(%%rdx), %%r13\n"
+      "mov 0x20(%%rdx), %%r14\n"
+      "mov 0x28(%%rdx), %%r15\n"
+      "mov %[val], %%rax\n"
+      "mov 0x30(%%rdx), %%rsp\n"
+      "mov 0x8(%%rdx), %%rbp\n" // * gdb好像是检测ebp的改动来判断在哪个函数里面
+      "mov 0x38(%%rdx), %%rdx\n"
+      "jmpq *%%rdx\n"
+      : 
+      : [env] "m"(env), [val] "m"(val)
+      : "cc", "memory"
 
   );
 }
