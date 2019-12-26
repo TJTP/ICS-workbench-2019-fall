@@ -84,29 +84,13 @@ int asm_setjmp(asm_jmp_buf env) {
       :
       :"m"(env) //占位符0
       :"%rax", "memory", "%rdi", "%rdx"
-
-      /*"mov %[env], %%rdx\n"
-      "mov %%rbx, (%%rdx)\n" // * 保存rbx
-      "mov (%%rsp), %%rax\n"
-      "mov %%rax, 0x8(%%rdx)\n" // * rsp存放rbp的旧址
-      "mov %%r12, 0x10(%%rdx)\n"
-      "mov %%r13, 0x18(%%rdx)\n"
-      "mov %%r14, 0x20(%%rdx)\n"
-      "mov %%r15, 0x28(%%rdx)\n"
-      "lea 0x10(%%rsp), %%rax\n"
-      "mov %%rax, 0x30(%%rdx)\n" // * rsp+10的地址是rsp的旧值
-      "mov 0x8(%%rsp), %%rax\n"
-      "mov %%rax, 0x38(%%rdx)\n"  // * rsp+8存放pc
-      : 
-      : [env] "m"(env)
-      : "%rax", "cc", "memory"*/
   );
   return 0;
 }
 
 void asm_longjmp(asm_jmp_buf env, int val) {
   // TODO: implement
-  asm(/*"mov %0, %%rdi\n"
+  asm("mov %0, %%rdi\n"
       "mov (%%rdi), %%rbx\n"
       "mov 0x10(%%rdi), %%r12\n"
       "mov 0x18(%%rdi), %%r13\n"
@@ -121,21 +105,6 @@ void asm_longjmp(asm_jmp_buf env, int val) {
       "jmpq *%%rdx\n"
       :
       :"m"(env), "m"(val) //占位符0， 1
-      :"memory"*/
-      "mov %[env], %%rdx\n"
-      "mov (%%rdx), %%rbx\n"
-      "mov 0x10(%%rdx), %%r12\n"
-      "mov 0x18(%%rdx), %%r13\n"
-      "mov 0x20(%%rdx), %%r14\n"
-      "mov 0x28(%%rdx), %%r15\n"
-      "mov %[val], %%rax\n"
-      "mov 0x30(%%rdx), %%rsp\n"
-      "mov 0x8(%%rdx), %%rbp\n" // * gdb好像是检测ebp的改动来判断在哪个函数里面
-      "mov 0x38(%%rdx), %%rdx\n"
-      "jmpq *%%rdx\n"
-      : 
-      : [env] "m"(env), [val] "m"(val)
-      : "cc", "memory"
-
+      :"memory"
   );
 }
