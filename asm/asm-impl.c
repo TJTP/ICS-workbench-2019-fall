@@ -45,18 +45,18 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
       "mov -0x18(%%rbp), %%rax\n"
       //"mov %%rax, -0x8(rbp)\n" //void * ret = dst
       "mov %%rax, %3\n"//void * ret = dst
-      "jmp dest1\n"
-      "dest2: mov -0x20(%%rbp), %%rax\n"
+      "jmp dest4\n"
+      "dest5: mov -0x20(%%rbp), %%rax\n"
       "movzbl (%%rax), %%edx\n"
       "mov -0x18(%%rbp), %%rax\n"
       "mov %%dl, (%%rax)\n"
       "addq $0x1, -0x18(%%rbp)\n"
       "addq $0x1, -0x20(%%rbp)\n"
-      "dest1: mov -0x28(%%rbp), %%rax\n"
+      "dest4: mov -0x28(%%rbp), %%rax\n"
       "lea -0x1(%%rax), %%rdx\n"//n--
       "mov %%rdx, -0x28(%%rbp)\n"
       "test %%rax, %%rax\n"//n > 0
-      "jne dest2\n"
+      "jne dest5\n"
       //"mov -0x8(%%rbp), %%rax\n" //将ret放进rax，以便返回
       //"pop %%rbp\n"
       //"retq\n"
