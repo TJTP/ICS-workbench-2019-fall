@@ -71,7 +71,7 @@ int asm_setjmp(asm_jmp_buf env) {
   // TODO: implement
   asm("mov %0, %%rdi\n"
       "mov %%rbx, (%%rdi)\n"
-      "mov %%rbp, %%rax\n"
+      "mov (%%rbp), %%rax\n"
       "mov %%rax, 0x8(%%rdi)\n"
       "mov %%r12, 0x10(%%rdi)\n"
       "mov %%r13, 0x18(%%rdi)\n"
