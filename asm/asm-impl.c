@@ -70,7 +70,6 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
 int asm_setjmp(asm_jmp_buf env) {
   // TODO: implement
   asm("mov %0, %%rdi\n"
-      "xor %%esi, %%esi\n"
       "mov %%rbx, (%%rdi)\n"
       "mov %%rbp, %%rax\n"
       "mov %%rax, 0x8(%%rdi)\n"
@@ -91,7 +90,7 @@ int asm_setjmp(asm_jmp_buf env) {
 
 void asm_longjmp(asm_jmp_buf env, int val) {
   // TODO: implement
-  asm("mov %0, %%rdi\n"
+  /*asm("mov %0, %%rdi\n"
       "mov (%%rdi), %%rbx\n"
       "mov 0x30(%%rdi), %%r8\n"
       "mov 0x8(%%rdi), %%r9\n"
@@ -109,5 +108,5 @@ void asm_longjmp(asm_jmp_buf env, int val) {
       :"m"(env), "m"(val) //占位符0， 1
       :"memory"
 
-  );
+  );*/
 }
