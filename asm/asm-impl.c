@@ -90,7 +90,7 @@ int asm_setjmp(asm_jmp_buf env) {
 
 void asm_longjmp(asm_jmp_buf env, int val) {
   // TODO: implement
-  asm("mov %0, %%rdi\n"
+  asm(//"mov %0, %%rdi\n"
       "mov (%%rdi), %%rbx\n"
       "mov 0x30(%%rdi), %%r8\n"
       "mov 0x8(%%rdi), %%r9\n"
