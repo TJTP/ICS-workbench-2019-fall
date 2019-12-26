@@ -15,6 +15,8 @@ int main() {
     //popcnt test
   assert(asm_popcnt(0xffffffffffffffffull) == 64);
   assert(asm_popcnt(0xff) == 8);
+  assert(asm_popcnt(0xf == 4));
+  assert(asm_popcnt(0x3f == 7));
 
 
   // TODO: add memcpy tests here!
