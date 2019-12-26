@@ -83,7 +83,7 @@ int asm_setjmp(asm_jmp_buf env) {
       "mov %%rax, 0x38(%%rdi)\n" 
       :
       :"m"(env) //占位符0
-      :"%rax", "%rdx", "%rdi", "memory"
+      :"%rax", "memory"
   );
   return 0;
 }
@@ -105,7 +105,7 @@ void asm_longjmp(asm_jmp_buf env, int val) {
       "jmpq *%%rdx\n"
       :
       :"m"(env), "m"(val) //占位符0， 1
-      :"memory", "%rdi", "%rax", "%rdx"
+      :"memory"
 
   );
 }
