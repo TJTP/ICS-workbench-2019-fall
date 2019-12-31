@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     assert("TOO MANY ARGS!!!\n");
   
   int rounds = 1;
-  char func[15];
+  char func_name[15];
 
   for (int i = 1; i < argc; i++){// 第一个arg是执行文件名，所以直接跳过
     if (0 == strcmp(argv[i], "-r")){//
@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
         assert("VALID INPUT: 'rounds' should be a positive #!!!\n");
     }
     else
-      strcpy(func, argv[i]);
+      strcpy(func_name, argv[i]);
       strcpy(mul_n, argv[i]);   
   }
   //void (*func)() = lookup("dummy");
@@ -67,7 +67,7 @@ static void (*lookup(const char *fn))() {
 }
 
 static void run(void (*func)(), int rounds) {
-  uint64_t *elapsed = malloc(sizeof(uint64_t) * rounds);
+  double *elapsed = malloc(sizeof(uint64_t) * rounds);
   if (!elapsed) {
     perror("elapsed");
     return;
@@ -75,9 +75,9 @@ static void run(void (*func)(), int rounds) {
 
   system("python ./rand_num_gen.py >rand_num.txt");
   for (int round = 0; round < rounds; round++) {
-    uint64_t st = gettime();
+    double st = gettime();
     func();
-    uint64_t ed = gettime();
+    double ed = gettime();
     //elapsed[round] = ed - st;
     elapsed[round] = (ed - st) / CLOCKS_PER_SEC;
   }
