@@ -84,8 +84,9 @@ static void run(void (*func)(), int rounds) {
   }
 
   // TODO: display runtime statistics
-  char fileName[30];
-  scanf(fileName, "RUNTIME_of_%s", mul_n);
+  ///char fileName[30];
+  char fileName[] = "RUNTIME_of_p1"; 
+  //scanf(fileName, "RUNTIME_of_%s", mul_n);
 
   FILE *fp = fopen(fileName,"a");
   if (fp == NULL)//文件不存在时，创建文件
