@@ -34,7 +34,7 @@ int64_t multimod_p2(){
     bool cor = res - ans == 0 ? true : false;
     if (cor)
       cnt_right += 1;
-    printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld cor:%s\n", a, b, m, res, ans, cor ? "RIGHT" : "WRONG");
+    //printf("a:%20ld b:%20ld m:%20ld ref_ans:%20ld my_ans:%20ld cor:%s\n", a, b, m, res, ans, cor ? "RIGHT" : "WRONG");
     cnt_total += 1;
   }
   fclose(fp);
