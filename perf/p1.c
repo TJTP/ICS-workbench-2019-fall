@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdint.h>
 
 #define bit 20 //2的64次方为9223372036854775808，共19位
 #define COUNTING
@@ -29,7 +30,8 @@ int64_t multimod_p1(){
  
 
 #ifdef COUNTING
-  int64_t a1 = a, b1 = b, m1 = m, res;
+  //int64_t a1 = a, b1 = b, m1 = m, res;
+  int64_t a, b, m, res;
   FILE *fp = fopen("../../rand_num","r");
   if(!fp){
     printf("can't open file\n");

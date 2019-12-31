@@ -3,25 +3,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 //#define COUNTING
 
 static int64_t calculator(int64_t a, int64_t b, int64_t m);
 
-int64_t multimod_p3(int64_t a, int64_t b, int64_t m) {
+//int64_t multimod_p1(int64_t a, int64_t b, int64_t m) {
+  // TODO: implement
   //clock_t start,finish;
   //start=clock();
-  
-  int64_t ret = 0; 
+  //int64_t ret = 0;
+int64_t multimod_p1(){
+ 
 
 #ifdef COUNTING
-  int64_t a1=a, b1=b, m1=m, res;
+  //int64_t a1 = a, b1 = b, m1 = m, res;
+  int64_t a, b, m, res;
   FILE *fp = fopen("../../rand_num","r");
   if(!fp){
     printf("can't open file\n");
     return false;
   }
-  
   int cnt_right = 0;
   int cnt_total = 0;
   while(!feof(fp)){
@@ -35,17 +38,19 @@ int64_t multimod_p3(int64_t a, int64_t b, int64_t m) {
   }
   fclose(fp);
   printf("There are %d samples in total, and # of correct samples is %d\n", cnt_total, cnt_right);
-  ret = calculator(a1,b1,m1);
+  //ret = calculator(a1,b1,m1);
 #endif
 #ifndef COUNTING
-  ret = calculator(a,b,m);
+  //ret = calculator(a,b,m);
+  printf("DO NOTHING\n");
+  return 0;
 #endif
 
   //finish=clock();
   //double duration = (double)(finish-start)/CLOCKS_PER_SEC;
-  //printf("%f seconds on p3.c and the answer is ",duration);
-  printf("The answer is: %d\n", ret);
-  return ret;
+  //printf("%f seconds on p1.c and the answer of input is ",duration);
+  //return ret;
+  return 0;
 }
 
 static int64_t calculator(int64_t a, int64_t b, int64_t m){
