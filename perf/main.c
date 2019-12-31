@@ -74,7 +74,7 @@ static void run(void (*func)(), int rounds) {
     return;
   }
 
-  system("python ./rand_num_gen.py >rand_num");
+  system("python ./rand_num_gen.py >rand_num");//生成随机数
   for (int round = 0; round < rounds; round++) {
     double st = gettime();
     func();
