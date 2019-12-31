@@ -1,4 +1,4 @@
-#include "multimod.h"
+//#include "multimod.h"
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>

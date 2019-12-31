@@ -91,10 +91,10 @@ static void run(void (*func)(), int rounds) {
     fp = fopen(fileName, "w");
   
   for (int i = 0; i < rounds; i++)
-    fprintf(fileName, "%f ", elapsed[i]);
-  fprintf(fileName, "\n");
+    fprintf(fp, "%f ", elapsed[i]);
+  fprintf(fp, "\n");
 
-  fclose(fileName);
+  fclose(fp);
   
 
 

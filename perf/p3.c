@@ -1,4 +1,4 @@
-#include "multimod.h"
+//#include "multimod.h"
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,7 +40,7 @@ int64_t multimod_p3(int64_t a, int64_t b, int64_t m) {
 #ifndef COUNTING
   ret = calculator(a,b,m);
 #endif
-  
+
   //finish=clock();
   //double duration = (double)(finish-start)/CLOCKS_PER_SEC;
   //printf("%f seconds on p3.c and the answer is ",duration);
