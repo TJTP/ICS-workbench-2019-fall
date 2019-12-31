@@ -13,11 +13,12 @@ PROGRAMS(DECL)
 static void run(void (*func)(), int rounds);
 static uint64_t gettime();
 static void (*lookup(const char *fn))();
-static char mul_n[15];//用于在run中创建文件时起名方便
+static  int flag = 0;;//用于在run中创建文件时起名方便
 
+#define valid_argc 6
 int main(int argc, char **argv) {
   // TODO: parse arguments: set @func and @rounds
-  if (argc > 4)
+  if (argc > valid_argc)
     assert("TOO MANY ARGS!!!\n");
   
   int rounds = 1;
@@ -28,11 +29,16 @@ int main(int argc, char **argv) {
       i += 1;
       sscanf(argv[i], "%d", &rounds);
       if (rounds <= 0)
-        assert("VALID INPUT: 'rounds' should be a positive #!!!\n");
+        assert("INVALID INPUT: 'rounds' should be a positive #!!!\n");
+    }
+    else if (0 == strcmp(argv[i], "-n")){
+      i += 1;
+      sscanf(argv[i], "%d", &flag);
+      if (flag <= 0)
+        assert("INVALID INPUT: 'flag' should only be 1 or 2 or 3!!!\n");
     }
     else{
       strcpy(func_name, argv[i]);
-      strcpy(mul_n, argv[i]); 
     }  
   }
   //void (*func)() = lookup("dummy");
@@ -85,12 +91,15 @@ static void run(void (*func)(), int rounds) {
   }
 
   // TODO: display runtime statistics
-
-  //char fileName[] = "RUNTIME_of_p1"; //手动改吧
-  //char fileName[] = "RUNTIME_of_p2"; //手动改吧
-  //char fileName[] = "RUNTIME_of_p3"; //手动改吧
   char *fileName;
-  scanf(fileName, "RUNTIME_of_%s", mul_n);
+  if (flag == 1)
+    fileName = "RUNTIME_of_p1";
+  else if (flag == 2)
+    fileName = "RUNTIME_of_p2";
+  else if (flag == 3)
+    fileName = "RUNTIME_of_p3";
+  else 
+    assert("INVALID FUNCTION #!!!\n");
 
   FILE *fp = fopen(fileName,"a");
   if (fp == NULL)//文件不存在时，创建文件
