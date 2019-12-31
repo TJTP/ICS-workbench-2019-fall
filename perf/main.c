@@ -13,18 +13,40 @@ PROGRAMS(DECL)
 static void run(void (*func)(), int rounds);
 static uint64_t gettime();
 static void (*lookup(const char *fn))();
+static char mul_n[15];//用于在run中创建文件时起名方便
 
 int main(int argc, char **argv) {
   // TODO: parse arguments: set @func and @rounds
-  void (*func)() = lookup("dummy");
-  int rounds = 10;
+  if (argc > 4)
+    assert("TOO MANY ARGS!!!\n");
+  
+  int rounds = 1;
+  char func[15];
 
+  for (int i = 1; i < argc; i++){// 第一个arg是执行文件名，所以直接跳过
+    if (0 == strcmp(argv[i], "-r")){//
+      i += 1;
+      sscanf(argv[i], "%d", &rounds);
+      if (rounds <= 0)
+        assert("VALID INPUT: 'rounds' should be a positive #!!!\n");
+    }
+    else
+      strcpy(func, argv[i]);
+      strcpy(mul_n, argv[i]);   
+  }
+  //void (*func)() = lookup("dummy");
+  //int rounds = 10;
+  void (*func)() = lookup(func);
+  
   run(func, rounds);
 }
 
 static uint64_t gettime() {
   // TODO: implement me!
-  return time(NULL);
+  clock_t cur_clk;
+  cur_clk = clock();
+  //return time(NULL);
+  return (double)cur_clk;
 }
 
 static void (*lookup(const char *fn))() {
@@ -51,14 +73,30 @@ static void run(void (*func)(), int rounds) {
     return;
   }
 
+  system("python ./rand_num_gen.py >rand_num.txt");
   for (int round = 0; round < rounds; round++) {
     uint64_t st = gettime();
     func();
     uint64_t ed = gettime();
-    elapsed[round] = ed - st;
+    //elapsed[round] = ed - st;
+    elapsed[round] = (ed - st) / CLOCKS_PER_SEC;
   }
 
   // TODO: display runtime statistics
+  char fileName[30];
+  scanf(fileName, "RUNTIME_of_%s", mul_n);
+
+  FILE *fp = fopen(fileName,"a");
+  if (fp == NULL)//文件不存在时，创建文件
+    fp = fopen(fileName, "w");
+  
+  for (int i = 0; i < rounds; i++)
+    fprintf(fileName, "%f ", elapsed[i]);
+  fprintf(fileName, "\n");
+
+  fclose(fileName);
+  
+
 
   free(elapsed);
 }
