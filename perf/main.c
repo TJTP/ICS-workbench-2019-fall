@@ -13,7 +13,7 @@ PROGRAMS(DECL)
 static void run(void (*func)(), int rounds);
 static uint64_t gettime();
 static void (*lookup(const char *fn))();
-static char mul_n[15];//用于在run中创建文件时起名方便
+//static char mul_n[15];//用于在run中创建文件时起名方便
 
 int main(int argc, char **argv) {
   // TODO: parse arguments: set @func and @rounds
@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     }
     else{
       strcpy(func_name, argv[i]);
-      strcpy(mul_n, argv[i]); 
+      //strcpy(mul_n, argv[i]); 
     }  
   }
   //void (*func)() = lookup("dummy");
@@ -74,7 +74,7 @@ static void run(void (*func)(), int rounds) {
     return;
   }
 
-  system("python ./rand_num_gen.py >rand_num.txt");
+  system("python ./rand_num_gen.py >rand_num");
   for (int round = 0; round < rounds; round++) {
     double st = gettime();
     func();
@@ -84,9 +84,8 @@ static void run(void (*func)(), int rounds) {
   }
 
   // TODO: display runtime statistics
-  ///char fileName[30];
-  char fileName[] = "RUNTIME_of_p1"; 
-  //scanf(fileName, "RUNTIME_of_%s", mul_n);
+  char fileName[] = "RUNTIME_of_p1"; //手动改吧
+ 
 
   FILE *fp = fopen(fileName,"a");
   if (fp == NULL)//文件不存在时，创建文件
