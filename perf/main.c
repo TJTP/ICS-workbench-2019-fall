@@ -89,7 +89,7 @@ static void run(void (*func)(), int rounds) {
   //char fileName[] = "RUNTIME_of_p1"; //手动改吧
   //char fileName[] = "RUNTIME_of_p2"; //手动改吧
   //char fileName[] = "RUNTIME_of_p3"; //手动改吧
-  char *fileName;
+  char *fileName = "RUNTIME";
   scanf(fileName, "RUNTIME_of_%s", mul_n);
 
   FILE *fp = fopen(fileName,"a");
