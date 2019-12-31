@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
   }
   //void (*func)() = lookup("dummy");
   //int rounds = 10;
-  void (*func)() = lookup(func);
+  void (*func)() = lookup(func_name);
   
   run(func, rounds);
 }
