@@ -74,7 +74,8 @@ static void run(void (*func)(), int rounds) {
     return;
   }
 
-  system("python ./rand_num_gen.py >rand_num");//生成随机数
+  //system("python ./gen_rand_num_hi.py >rand_num");//生成限制a,b,m大小的随机数
+  //system("python ./gen_rand_num_1.py >rand_num");//生成含1的位数限制的随机数
   for (int round = 0; round < rounds; round++) {
     double st = gettime();
     func();
@@ -84,8 +85,10 @@ static void run(void (*func)(), int rounds) {
   }
 
   // TODO: display runtime statistics
+
   char fileName[] = "RUNTIME_of_p1"; //手动改吧
- 
+  //char fileName[] = "RUNTIME_of_p2"; //手动改吧
+  //char fileName[] = "RUNTIME_of_p3"; //手动改吧
 
   FILE *fp = fopen(fileName,"a");
   if (fp == NULL)//文件不存在时，创建文件

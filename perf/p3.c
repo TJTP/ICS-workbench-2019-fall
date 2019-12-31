@@ -37,7 +37,7 @@ int64_t multimod_p3(){
     cnt_total += 1;
   }
   fclose(fp);
-  printf("There are %d samples in total, and # of correct samples is %d\n", cnt_total, cnt_right);
+  //printf("There are %d samples in total, and # of correct samples is %d\n", cnt_total, cnt_right);
   //ret = calculator(a1,b1,m1);
 #endif
 #ifndef COUNTING
