@@ -30,9 +30,10 @@ int main(int argc, char **argv) {
       if (rounds <= 0)
         assert("VALID INPUT: 'rounds' should be a positive #!!!\n");
     }
-    else
+    else{
       strcpy(func_name, argv[i]);
-      strcpy(mul_n, argv[i]);   
+      strcpy(mul_n, argv[i]); 
+    }  
   }
   //void (*func)() = lookup("dummy");
   //int rounds = 10;
