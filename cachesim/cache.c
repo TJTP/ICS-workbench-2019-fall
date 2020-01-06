@@ -8,9 +8,13 @@ static uint32_t load_cache(uintptr_t);
 static uint32_t substitude_cache(uintptr_t);
 
 static uint64_t cycle_cnt = 0;
+static uint32_t hit_cnt = 0;
+static uint32_t miss_cnt = 0;
 static cache_line *cache;//cache
 
 void cycle_increase(int n) { cycle_cnt += n; }
+void hit() { hit_cnt += 1; }
+void miss() { miss_cnt += 1; }
 
 // TODO: implement the following functions
 
@@ -23,11 +27,13 @@ uint32_t cache_read(uintptr_t addr) {
   //查看对应组中是否命中
   for (int i = 0; i < exp2(asso_width); i++){
     if ((base_addr[i].tag == ADDR_TAG(addr)) && base_addr[i].valid_bit == true){
+      hit();
       uint32_t* ret = (uint32_t*)(base_addr[i].data + ADDR_IN_BLOCK(addr));
       return *ret;
     }
   }
   //如果没有命中，则需要加载cache
+  miss();
   uint32_t idx_in_grp = load_cache(addr);
   uint32_t* ret = (uint32_t*)(base_addr[idx_in_grp].data + ADDR_IN_BLOCK(addr));
   return *ret;
@@ -78,7 +84,7 @@ void init_cache(int total_size_width, int associativity_width) {
 }
 
 void display_statistic(void) {
-  
+  printf("HIT: %d, MISS: %d, HIT_RATIO: %f\n", hit_cnt, miss_cnt, (double)(hit_cnt/hit_cnt + miss_cnt));
 }
 
 uint32_t load_cache(uintptr_t addr){//返回所在组中的行号
