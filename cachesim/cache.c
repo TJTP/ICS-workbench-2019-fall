@@ -23,13 +23,13 @@ uint32_t cache_read(uintptr_t addr) {
   //查看对应组中是否命中
   for (int i = 0; i < exp2(asso_width); i++){
     if ((base_addr[i].tag == ADDR_TAG(addr)) && base_addr[i].valid_bit == true){
-      uint32_t* ret = base_addr[i].data + ADDR_IN_BLOCK(addr);
+      uint32_t* ret = (uint32_t*)(base_addr[i].data + ADDR_IN_BLOCK(addr));
       return *ret;
     }
   }
   //如果没有命中，则需要加载cache
   uint32_t idx_in_grp = load_cache(addr);
-  uint32_t* ret = base_addr[idx_in_grp].data + ADDR_IN_BLOCK(addr);
+  uint32_t* ret = (uint32_t*)(base_addr[idx_in_grp].data + ADDR_IN_BLOCK(addr));
   return *ret;
 
 }
@@ -95,7 +95,7 @@ uint32_t load_cache(uintptr_t addr){//返回所在组中的行号
     }
   }
 
-  return substitude_cache(base_addr);
+  return substitude_cache(addr);
 }
 
 uint32_t substitude_cache(uintptr_t addr){
