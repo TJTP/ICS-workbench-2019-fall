@@ -84,7 +84,8 @@ void init_cache(int total_size_width, int associativity_width) {
 }
 
 void display_statistic(void) {
-  printf("HIT: %d, MISS: %d, HIT_RATIO: %lf\n", hit_cnt, miss_cnt, (double)(hit_cnt/(hit_cnt + miss_cnt)));
+  double hit_ratio = (double)(hit_cnt / (hit_cnt + miss_cnt));
+  printf("HIT: %d, MISS: %d, HIT_RATIO: %lf\n", hit_cnt, miss_cnt, hit_ratio);
 }
 
 uint32_t load_cache(uintptr_t addr){//返回所在组中的行号
