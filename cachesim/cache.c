@@ -44,7 +44,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   //查看对应组中是否命中
   for (int i = 0; i < exp2(asso_width); i++){
     if ((base_addr[i].tag == ADDR_TAG(addr)) && base_addr[i].valid_bit == true){
-      uint32_t *addr_modified = base_addr[i].data + ADDR_IN_BLOCK(addr);
+      uint32_t *addr_modified = (uint32_t*)(base_addr[i].data + ADDR_IN_BLOCK(addr));
       *addr_modified = (*addr_modified & ~wmask) | (data & wmask);
       base_addr[i].dirty_bit = true;
       return;
@@ -53,7 +53,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
 
   //如果没有命中，则需要加载cache
   uint32_t idx_in_grp =  load_cache(addr);
-  uint32_t *addr_modified = base_addr[idx_in_grp].data + ADDR_IN_BLOCK(addr);
+  uint32_t *addr_modified = (uint32_t*)(base_addr[idx_in_grp].data + ADDR_IN_BLOCK(addr));
   *addr_modified = (*addr_modified & ~wmask) | (data & wmask);
   base_addr[idx_in_grp].dirty_bit = true;
 }
