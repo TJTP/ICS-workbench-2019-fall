@@ -4,7 +4,7 @@
 
 
 #define TOT_W 16
-#define GRP_W 1
+#define GRP_W 2
 
 uint32_t cpu_read(uintptr_t addr, int len);
 void cpu_write(uintptr_t addr, int len, uint32_t data);
