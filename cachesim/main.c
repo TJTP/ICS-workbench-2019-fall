@@ -3,8 +3,8 @@
 #include <unistd.h>
 
 
-#define TOT_W 10
-#define GRP_W 4
+#define TOT_W 13
+#define GRP_W 0
 
 uint32_t cpu_read(uintptr_t addr, int len);
 void cpu_write(uintptr_t addr, int len, uint32_t data);

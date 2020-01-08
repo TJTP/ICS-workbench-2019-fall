@@ -78,7 +78,7 @@ void init_cache(int total_size_width, int associativity_width) {
   cache = (cache_line*)malloc(sizeof(cache_line) * row_num);
 
   index_width = (total_size_width - BLOCK_WIDTH) - associativity_width;
-  assert(index_width > 0);
+  assert(index_width >= 0);
   tag_width = MEM_WIDTH - BLOCK_WIDTH - index_width;
   asso_width = associativity_width;
 
