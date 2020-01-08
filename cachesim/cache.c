@@ -95,7 +95,7 @@ void display_statistic(void) {
     fopen(FILE_NAME, "w");
   //fprintf(fp, "%f %d\n", hit_ratio, tot_width);
   //fprintf(fp, "%f %d\n", hit_ratio, asso_width);
-  fprintf(fp, "%f %d %d\n", cycle_cnt/(hit_cnt + miss_cnt), tot_width, asso_width);
+  fprintf(fp, "%f %d %d\n", (double)cycle_cnt/(hit_cnt + miss_cnt), tot_width, asso_width);
   fclose(fp);
   //printf("HIT: %d, MISS: %d, HIT_RATIO: %f\n", hit_cnt, miss_cnt, hit_ratio);
   //printf("TOTAL CYCLE: %d\n", cycle_cnt);
