@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 
-#define CACHE_SZ 16
+#define CACHE_SZ 17
 
 uint32_t cpu_read(uintptr_t addr, int len);
 void cpu_write(uintptr_t addr, int len, uint32_t data);
