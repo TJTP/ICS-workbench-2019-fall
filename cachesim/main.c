@@ -2,6 +2,9 @@
 #include <time.h>
 #include <unistd.h>
 
+
+#define CACHE_SZ 12
+
 uint32_t cpu_read(uintptr_t addr, int len);
 void cpu_write(uintptr_t addr, int len, uint32_t data);
 uint32_t cpu_uncache_read(uintptr_t addr, int len);
@@ -129,7 +132,7 @@ int main(int argc, char *argv[]) {
   init_rand(seed);
   init_mem();
 
-  init_cache(14, 2);
+  init_cache(CACHE_SZ, 2);
 
   replay_trace();
 
