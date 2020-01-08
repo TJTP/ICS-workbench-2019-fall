@@ -93,7 +93,7 @@ void display_statistic(void) {
   if (fp == NULL)
     fopen(FILE_NAME, "w");
   //fprintf(fp, "%f %d\n", hit_ratio, tot_width);
-  fprintf(fp, "%f %d\n", hit_ratio, tot_width);
+  fprintf(fp, "%f %d\n", hit_ratio, asso_width);
   fclose(fp);
   //printf("HIT: %d, MISS: %d, HIT_RATIO: %f\n", hit_cnt, miss_cnt, hit_ratio);
   //printf("TOTAL CYCLE: %d\n", cycle_cnt);
