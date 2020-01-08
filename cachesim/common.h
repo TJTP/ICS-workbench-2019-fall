@@ -29,6 +29,7 @@ typedef struct {
     uint8_t data[BLOCK_SIZE]; //8 * 64
 } cache_line;
 
+uint32_t tot_width; //cache的总大小宽度
 uint32_t row_num;  //cache的行数
 uint32_t index_width; //cache的组号的幂(宽度)
 uint32_t tag_width; //cache的标记的宽度
@@ -38,9 +39,5 @@ uint32_t asso_width; //每组的宽度
 #define ADDR_TAG(addr) ((addr >> (MEM_WIDTH - tag_width)) & mask_with_len(tag_width))
 #define ADDR_IN_BLOCK(addr) (addr & mask_with_len(BLOCK_WIDTH))
 #define BLOCK_INDEX(addr) ((addr >> BLOCK_WIDTH) & mask_with_len(MEM_WIDTH - BLOCK_WIDTH)) 
-
-
-
-
 
 #endif

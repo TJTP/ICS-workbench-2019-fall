@@ -2,6 +2,8 @@
 #include <inttypes.h>
 #include <stdlib.h>
 
+#define FILE_NAME "ratio_tot_sz.txt"
+
 void mem_read(uintptr_t block_num, uint8_t *buf);
 void mem_write(uintptr_t block_num, const uint8_t *buf);
 static uint32_t load_cache(uintptr_t);
@@ -26,6 +28,7 @@ uint32_t cache_read(uintptr_t addr) {
 
   //查看对应组中是否命中
   for (int i = 0; i < exp2(asso_width); i++){
+    cycle_increase(1);
     if ((base_addr[i].tag == ADDR_TAG(addr)) && base_addr[i].valid_bit == true){
       hit();
       uint32_t* ret = (uint32_t*)(base_addr[i].data + ADDR_IN_BLOCK(addr));
@@ -70,6 +73,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
 void init_cache(int total_size_width, int associativity_width) {
   assert(total_size_width >= associativity_width);
 
+  tot_width = total_size_width;
   row_num = exp2(total_size_width - BLOCK_WIDTH);
   cache = (cache_line*)malloc(sizeof(cache_line) * row_num);
 
@@ -85,7 +89,13 @@ void init_cache(int total_size_width, int associativity_width) {
 
 void display_statistic(void) {
   double hit_ratio = (double)hit_cnt / (hit_cnt + miss_cnt);
-  printf("HIT: %d, MISS: %d, HIT_RATIO: %f\n", hit_cnt, miss_cnt, hit_ratio);
+  FILE* fp = fopen(FILE_NAME, "a+");
+  if (fp == NULL)
+    fopen(FILE_NAME, "w");
+  fprintf(fp, "%d, %d\n", hit_ratio, tot_width);
+  fclose(fp);
+  //printf("HIT: %d, MISS: %d, HIT_RATIO: %f\n", hit_cnt, miss_cnt, hit_ratio);
+  //printf("TOTAL CYCLE: %d\n", cycle_cnt);
 }
 
 uint32_t load_cache(uintptr_t addr){//返回所在组中的行号
@@ -94,6 +104,7 @@ uint32_t load_cache(uintptr_t addr){//返回所在组中的行号
 
   //从内存中取相应块的内容存入对应组的某一行
   for (uint32_t i = 0; i <exp2(asso_width); i++ ){
+    cycle_increase(1);
     if (base_addr[i].valid_bit == false){//如果有未被使用的行
       mem_read(BLOCK_INDEX(addr), base_addr[i].data);
       base_addr[i].valid_bit = true;
