@@ -3,7 +3,8 @@
 #include <unistd.h>
 
 
-#define CACHE_SZ 22
+#define TOT_W 23
+#define GRP_W 0
 
 uint32_t cpu_read(uintptr_t addr, int len);
 void cpu_write(uintptr_t addr, int len, uint32_t data);
@@ -132,7 +133,7 @@ int main(int argc, char *argv[]) {
   init_rand(seed);
   init_mem();
 
-  init_cache(CACHE_SZ, 2);
+  init_cache(TOT_W, GRP_W);
 
   replay_trace();
 

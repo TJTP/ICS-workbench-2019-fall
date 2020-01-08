@@ -2,7 +2,7 @@
 #include <inttypes.h>
 #include <stdlib.h>
 
-#define FILE_NAME "ratio_tot_sz.txt"
+#define FILE_NAME "ratio_asso_width.txt"
 
 void mem_read(uintptr_t block_num, uint8_t *buf);
 void mem_write(uintptr_t block_num, const uint8_t *buf);
@@ -92,6 +92,7 @@ void display_statistic(void) {
   FILE* fp = fopen(FILE_NAME, "a+");
   if (fp == NULL)
     fopen(FILE_NAME, "w");
+  //fprintf(fp, "%f %d\n", hit_ratio, tot_width);
   fprintf(fp, "%f %d\n", hit_ratio, tot_width);
   fclose(fp);
   //printf("HIT: %d, MISS: %d, HIT_RATIO: %f\n", hit_cnt, miss_cnt, hit_ratio);
