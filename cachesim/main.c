@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 
-#define TOT_W 14
+#define TOT_W 15
 #define GRP_W 3
 
 uint32_t cpu_read(uintptr_t addr, int len);
