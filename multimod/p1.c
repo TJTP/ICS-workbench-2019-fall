@@ -128,9 +128,6 @@ bool compare(NUM * num1, NUM * num2){//num1比num2大或相等时，返回true
 
 
 static void mod (NUM * res, NUM  num1, NUM  num2){
-  /*while (compare(num1, num2))
-    subtract(num1, num2);*/
-
   memset(res, 0, sizeof(res->s));
   res->len = 0;
 
@@ -150,24 +147,6 @@ static void mod (NUM * res, NUM  num1, NUM  num2){
 
 
 static void subtract(NUM * num1, NUM * num2){// num1是大于等于num2的
-  /*for (int i = 0; i < num2->len; i++){
-    num1->s[i] -= num2->s[i];
-    if (num1->s[i] < 0){
-      for (int j = i+1; j < num1->len; j++){
-        if(num1->s[j] > 0){//找到借位所在的位时
-          num1->s[i] += 10;//当前位加上10
-          num1->s[j] -= 1;//被借的位减去1
-          break;
-        }
-        else 
-          num1->s[j] = 9;
-      }
-    }
-  }
-
-  while (num1->s[num1->len - 1] == 0 && (num1->len > 1))
-    num1->len -= 1;*/
-  
   int carry = 0;
   for (int i = 0; i < num1->len; i++){
     num1->s[i] -= carry;

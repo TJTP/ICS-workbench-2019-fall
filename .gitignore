@@ -8,3 +8,8 @@
 *.out
 *-64
 *-32
+*.txt
+*.pdf
+rand_num
+rand_num?*
+RUNTIME?*

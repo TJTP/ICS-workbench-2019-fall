@@ -1,3 +1,5 @@
+export STUID := 181220039
+export STUNAME := 庞淘天
 NAME := $(shell basename $(PWD))
 export TASK := Lab2
 all: $(NAME)-64
